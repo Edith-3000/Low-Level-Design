@@ -1,0 +1,16 @@
+{
+  "files.associations": {
+    "*.cpp": "cpp",
+    "string": "cpp",
+    "memory": "cpp",
+    "vector": "cpp",
+    "exception": "cpp",
+    "map": "cpp",
+    "iosfwd": "cpp",
+    "__locale": "cpp",
+    "locale": "cpp",
+    "thread": "cpp",
+    "*.ipp": "cpp",
+    "filesystem": "cpp"
+  }
+}

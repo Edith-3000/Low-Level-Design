@@ -1,0 +1,5 @@
+enum class BOOKING_STATUS {
+    CREATED,
+    CONFIRMED,
+    EXPIRED
+};

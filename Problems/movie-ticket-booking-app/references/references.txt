@@ -1,0 +1,39 @@
+# How to install & include C++ Boost library on macOS?
+  1. https://www.geeksforgeeks.org/how-to-install-boost-library-in-c-on-macos/
+  2. By default the C++ Boost library might get installed at '/opt/local/libexec/boost/1.76/include/boost'
+  3. Now copy it and paste it to this location '/usr/local/include'
+
+# https://stackoverflow.com/questions/14585385/best-practice-how-to-get-a-unique-identifier-for-the-object
+# https://theboostcpplibraries.com/boost.uuid
+# https://stackoverflow.com/questions/3247861/example-of-uuid-generation-using-boost-in-c
+
+# https://softwareengineering.stackexchange.com/questions/395419/how-can-a-class-have-multiple-methods-without-breaking-the-single-responsibility
+# https://www.youtube.com/watch?v=-T0H--a8WnY&ab_channel=sudoCODE
+
+# Garbage collection is a way of automatic memory management provided by modern programming languages like Java, Go, Python 
+  and JavaScript.
+  https://www.youtube.com/watch?v=ZhbIReLe-r8&ab_channel=GauravSen
+
+# https://www.educative.io/answers/what-are-data-allocation-and-garbage-collection-in-cpp-and-c-sharp
+# https://qr.ae/py1awH
+# https://qr.ae/py1abP
+# https://stackoverflow.com/a/44587929/12140410
+
+# Smart Pointers in C++
+  1. https://www.youtube.com/watch?v=e2LMAgoqY_k&ab_channel=CodeBeauty
+  2. https://www.scaler.com/topics/cpp/smart-pointers-in-cpp/
+  3. https://www.youtube.com/playlist?list=PLk6CEY9XxSIAI2K-sxrKzzSyT6UZR5ObP
+
+# https://stackoverflow.com/questions/4971286/javas-final-vs-cs-const#:~:text=Java%20final%20is%20equivalent%20to,i.e.&text=Save%20this%20answer.,-Show%20activity%20on
+
+# https://stackoverflow.com/questions/1423696/how-to-initialize-a-const-field-in-constructor
+# https://www.tutorialspoint.com/how-to-initialize-const-member-variable-in-a-cplusplus-class#:~:text=To%20initialize%20the%20const%20value,will%20be%20separated%20using%20comma.
+
+# https://www.bestprog.net/en/2018/08/30/passing-a-constant-parameters-to-a-function-the-return-of-constant-from-function/
+
+# https://www.geeksforgeeks.org/difference-between-const-int-const-int-const-and-int-const/
+
+# https://www.educative.io/answers/what-is-the-allargsconstructor-annotation-in-lombok
+
+# https://rollbar.com/blog/cpp-custom-exceptions/
+# https://www.youtube.com/watch?v=kjEhqgmEiWY&ab_channel=CodeBeauty
