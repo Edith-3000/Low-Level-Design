@@ -50,8 +50,8 @@ ShowService* ShowService::getShowServiceInstance() {
     return showServiceInstance;
 }
 
-void createShow(Movie* movie, Screen* screen, time_t startTime, int durationInSeconds) {
-    if(!checkIfShowCreationAllowed(screen, startTime, durationInSeconds)) {
+void ShowService::createShow(Movie* movie, Screen* screen, time_t startTime, int durationInSeconds) {
+    if(checkIfShowCreationAllowed(screen, startTime, durationInSeconds) == false) {
         throw ScreenAlreadyOccupiedException();
     }
     
