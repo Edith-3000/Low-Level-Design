@@ -1,1 +1,3 @@
 # https://www.digitalocean.com/community/tutorials/observer-design-pattern-in-java
+
+# https://chat.openai.com/share/6975b408-44e4-4f48-8faa-984022173f0c
