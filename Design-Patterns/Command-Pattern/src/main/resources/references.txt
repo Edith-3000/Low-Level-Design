@@ -1,0 +1,3 @@
+# https://www.scaler.com/topics/design-patterns/command-design-pattern/
+
+# https://youtu.be/9qA5kw8dcSU
