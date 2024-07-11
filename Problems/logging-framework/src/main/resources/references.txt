@@ -1,0 +1,3 @@
+# https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md
+
+# https://chatgpt.com/share/cc68ac9f-565d-4653-805e-9b9d9361fa96
