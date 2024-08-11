@@ -34,4 +34,16 @@ public class TopicHandler {
             subscriberWorker.wakeUpIfNeeded();
         }
     }
+
+    public void stopSubscriberWorker(@NonNull final TopicSubscriber topicSubscriber) {
+        synchronized (subscriberWorkers) {
+            final String subscriberId = topicSubscriber.getSubscriber().getId();
+
+            if (subscriberWorkers.containsKey(subscriberId)) {
+                final SubscriberWorker subscriberWorker = subscriberWorkers.get(subscriberId);
+                subscriberWorker.stop();
+                subscriberWorkers.remove(subscriberId);
+            }
+        }
+    }
 }

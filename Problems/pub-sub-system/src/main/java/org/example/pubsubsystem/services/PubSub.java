@@ -47,6 +47,8 @@ public class PubSub {
     public void unsubscribe(@NonNull final ISubscriber subscriber, @NonNull final Topic topic) {
         for (TopicSubscriber topicSubscriber: topic.getSubscribers()) {
             if (topicSubscriber.getSubscriber().equals(subscriber)) {
+                TopicHandler topicHandler = topicHandlers.get(topic.getId());
+                topicHandler.stopSubscriberWorker(topicSubscriber);
                 topic.removeSubscriber(topicSubscriber);
                 System.out.println(topicSubscriber.getSubscriber().getId() + " unsubscribed from topic " + topic.getName() + " [ID: " + topic.getId() + "]");
             }

@@ -45,5 +45,7 @@ public class Main {
 
         pubsub.publish(t1, new Message("m6", System.currentTimeMillis(), "This is message_6"));
         pubsub.publish(t2, new Message("m7", System.currentTimeMillis(), "This is message_7"));
+
+        pubsub.subscribe(s2, t2);
     }
 }

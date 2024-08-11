@@ -1,0 +1,5 @@
+# Main reference: https://youtu.be/4BEzgPlLKTo
+
+# https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/pub-sub-system.md
+
+# https://gist.github.com/Edith-3000/8b362c22faaafb7625cad31b1352e6dd
