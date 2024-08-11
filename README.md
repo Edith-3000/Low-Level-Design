@@ -1,9 +1,4 @@
-<p align="center">
-  <img src="images/lld-repo-logo.png" width="350" height="200">
-</p>
-<p align="center">
-  <a href="https://blog.algomaster.io/">Join Free Newsletter</a>
-</p>
+# LLD
 
 This repository contains resources to learn Low Level Design (LLD) / Object Oriented Design (OOD) and prepare for interviews.
 
@@ -37,7 +32,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [State](https://refactoring.guru/design-patterns/state)
 
 ## 🗂️ UML
-- [Class Diagram](https://blog.algomaster.io/p/uml-class-diagram-explained-with-examples)
+- [Class Diagram](https://blog.algomaster.io/p/uml-class-diagram-explained-with-examples) - ✅
 - [Use Case Diagram](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-use-case-diagram/)
 - [Sequence Diagram](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-sequence-diagram/)
 - [Activity Diagram](https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-activity-diagram/)
@@ -56,7 +51,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Design Traffic Signal Control System](problems/traffic-signal.md)
 - [Design a Task Management System](problems/task-management-system.md)
 ### Medium
-- [Design Pub Sub System](problems/pub-sub-system.md)
+- [Design Pub Sub System](problems/pub-sub-system.md) - ✅
 - [Design Tic Tac Toe Game](problems/tic-tac-toe.md)
 - [Design Car Rental System](problems/car-rental-system.md)
 - [Design an ATM](problems/atm.md)
@@ -73,7 +68,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Design a Cache using LRU Eviction Policy](problems/lru-cache.md)
 ### Hard
 - [Design Movie Ticket Booking System](problems/movie-ticket-booking-system.md)
-- [Design Splitwise](problems/splitwise.md)
+- [Design Splitwise](problems/splitwise.md) - ✅
 - [Design a Snake and Ladder game](problems/snake-and-ladder.md)
 - [Design Online Shopping System like Amazon](problems/online-shopping-service.md)
 - [Design Online Stock Brokerage System](problems/online-stock-brokerage-system.md)
