@@ -15,15 +15,18 @@ public class SubscriberWorker implements Runnable {
     public void run() {
         synchronized (topicSubscriber) {
             do {
-                int currentOffset = topicSubscriber.getOffset();
-
-                while (currentOffset >= topic.getMessages().size()) {
+                // Re-fetch the current offset in case it was reset while waiting, otherwise code will
+                // never go out of this for loop
+                while (topicSubscriber.getOffset() >= topic.getMessages().size()) {
                     try {
                      topicSubscriber.wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 }
+
+                // Re-fetch the current offset in case it was reset
+                int currentOffset = topicSubscriber.getOffset();
 
                 Message message = topic.getMessages().get(currentOffset);
                 try {
