@@ -1,3 +1,7 @@
+# Main reference: https://youtu.be/B7iCXl_KSoM
+
+# https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/lru-cache.md
+
 # https://chatgpt.com/share/8d115f77-8696-4eef-985c-fd614b42b73a
 
 # https://chatgpt.com/share/9de80d6e-0e86-48e3-be76-e48a0b877986
