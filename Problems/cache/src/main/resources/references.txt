@@ -9,3 +9,5 @@
 # https://chatgpt.com/share/44f5a511-f493-40dd-ad8f-f465c64c4348
 
 # https://chatgpt.com/share/867aacd1-9c01-4cd9-83c1-fc568e149bf4
+
+# Showing static members in UML class diagram - https://pages.cs.wisc.edu/~hasti/cs302/examples/UMLdiagram.html
