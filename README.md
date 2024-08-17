@@ -65,7 +65,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Design a Digital Wallet System](problems/digital-wallet-system.md)
 - [Design an Online Auction System](problems/online-auction-system.md)
 - [Design a Concert Ticket Booking System](problems/concert-ticketing-system.md)
-- [Design a Cache using LRU Eviction Policy](problems/lru-cache.md)
+- [Design a Cache using LRU Eviction Policy](problems/lru-cache.md) ✅
 ### Hard
 - [Design Movie Ticket Booking System](problems/movie-ticket-booking-system.md)
 - [Design Splitwise](problems/splitwise.md) - ✅
