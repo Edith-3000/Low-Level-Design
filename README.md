@@ -100,7 +100,7 @@ This repository contains resources to learn System Design concepts and prepare f
 
 ## 📌 System Design Key Concepts
 - [Scalability](https://blog.algomaster.io/p/scalability) ✅
-- [Availability](https://blog.algomaster.io/p/system-design-what-is-availability)
+- [Availability](https://blog.algomaster.io/p/system-design-what-is-availability) ✅
 - [CAP Theorem](https://blog.algomaster.io/p/cap-theorem-explained)
 - [ACID Transactions](https://blog.algomaster.io/p/ecae03ba-1930-42ef-8796-83e2fa818989)
 - [Consistent Hashing](https://highscalability.com/consistent-hashing-algorithm/)
@@ -137,7 +137,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Database Indexes](https://blog.algomaster.io/p/a-detailed-guide-on-database-indexes)
 - [Consistency Patterns](https://systemdesign.one/consistency-patterns/)
 - [HeartBeats](https://blog.algomaster.io/p/heartbeats-in-distributed-systems)
-- [Circuit Breaker](https://medium.com/geekculture/design-patterns-for-microservices-circuit-breaker-pattern-276249ffab33)
+- [Circuit Breaker](https://medium.com/geekculture/design-patterns-for-microservices-circuit-breaker-pattern-276249ffab33) ✅
 - [Idempotency](https://blog.algomaster.io/p/ff43e079-98db-428d-83f7-fd34697df678)
 - [Database Scaling](https://blog.algomaster.io/p/system-design-how-to-scale-a-database)
 - [Data Replication](https://redis.com/blog/what-is-data-replication/)
