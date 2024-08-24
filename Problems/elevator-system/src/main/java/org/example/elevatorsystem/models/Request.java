@@ -7,6 +7,7 @@ import org.example.elevatorsystem.enums.Direction;
 public class Request {
     @Getter
     private final int sourceFloorId;
+    @Getter
     private final int destinationFloorId;
     @Getter
     private final Direction direction;
@@ -15,7 +16,7 @@ public class Request {
     public Request(final int sourceFloorId, @NonNull final Direction direction) {
         this.sourceFloorId = sourceFloorId;
         this.direction = direction;
-        this.destinationFloorId = -1; // Not significant in case of external request
+        this.destinationFloorId = Integer.MIN_VALUE; // Not significant in case of external request
     }
 
     // For internal request

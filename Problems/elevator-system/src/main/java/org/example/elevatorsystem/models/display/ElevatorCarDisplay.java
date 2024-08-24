@@ -1,4 +1,4 @@
-package org.example.elevatorsystem.models;
+package org.example.elevatorsystem.models.display;
 
 import lombok.NonNull;
 import org.example.elevatorsystem.enums.Direction;
