@@ -14,6 +14,7 @@ public class ExternalPanel {
     }
 
     public int pressButton(Direction direction) {
+        floor.getFloorDisplay().display(floor.getId(), direction);
         return ExternalRequestDispatcher.getInstance().dispatchRequest(new Request(floor.getId(), direction));
     }
 }

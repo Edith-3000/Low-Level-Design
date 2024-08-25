@@ -2,6 +2,7 @@ package org.example.elevatorsystem.models;
 
 import lombok.Getter;
 import org.example.elevatorsystem.enums.Direction;
+import org.example.elevatorsystem.models.display.ElevatorCarDisplay;
 import org.example.elevatorsystem.models.panel.InternalPanel;
 import org.example.elevatorsystem.services.ElevatorSystem;
 
@@ -19,13 +20,15 @@ public class ElevatorCar {
     private final List<Request> requests;
     @Getter
     private final InternalPanel internalPanel;
+    private final ElevatorCarDisplay elevatorCarDisplay;
 
     public ElevatorCar(final int id) {
         this.id = id;
         this.currentFloor = 0;
         this.currentDirection = Direction.IDLE;
-        requests = new ArrayList<>();
+        this.requests = new ArrayList<>();
         this.internalPanel = new InternalPanel(this);
+        this.elevatorCarDisplay = new ElevatorCarDisplay();
     }
 
     public void addRequest(Request request) {
@@ -64,11 +67,17 @@ public class ElevatorCar {
         int endFloor = (request.getDestinationFloorId() == Integer.MIN_VALUE) ? request.getSourceFloorId() : request.getDestinationFloorId();
 
         if (startFloor < endFloor) {
+            elevatorCarDisplay.display(id, currentFloor, currentDirection);
             currentDirection = Direction.UP;
 
             for (int i = startFloor + 1; i <= endFloor; i++) {
-                System.out.println("Elevator: " + id + " reached floor: " + i);
                 currentFloor = i;
+
+                if (i == endFloor) {
+                    currentDirection = Direction.IDLE;
+                }
+
+                elevatorCarDisplay.display(id, currentFloor, currentDirection);
 
                 try {
                     Thread.sleep(1000); // Simulating elevator movement
@@ -76,12 +85,19 @@ public class ElevatorCar {
                     e.printStackTrace();
                 }
             }
+
         } else if (startFloor > endFloor) {
+            elevatorCarDisplay.display(id, currentFloor, currentDirection);
             currentDirection = Direction.DOWN;
 
             for (int i = startFloor - 1; i >= endFloor; i--) {
-                System.out.println("Elevator: " + id + " reached floor: " + i);
                 currentFloor = i;
+
+                if (i == endFloor) {
+                    currentDirection = Direction.IDLE;
+                }
+
+                elevatorCarDisplay.display(id, currentFloor, currentDirection);
 
                 try {
                     Thread.sleep(1000); // Simulating elevator movement
