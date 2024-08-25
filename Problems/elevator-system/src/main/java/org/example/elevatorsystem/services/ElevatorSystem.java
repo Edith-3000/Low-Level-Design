@@ -11,6 +11,7 @@ import org.example.elevatorsystem.models.Floor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ElevatorSystem {
     private static volatile ElevatorSystem instance;
@@ -22,8 +23,8 @@ public class ElevatorSystem {
     private final List<Floor> floors;
 
     private ElevatorSystem() {
-        elevatorCars = new ArrayList<>();
-        floors = new ArrayList<>();
+        elevatorCars = new CopyOnWriteArrayList<>();
+        floors = new CopyOnWriteArrayList<>();
     }
 
     public static ElevatorSystem getInstance() {

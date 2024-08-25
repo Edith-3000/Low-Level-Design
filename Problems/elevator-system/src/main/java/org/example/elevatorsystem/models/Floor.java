@@ -14,7 +14,7 @@ public class Floor {
 
     public Floor(final int id) {
         this.id = id;
-         this.floorDisplay = new FloorDisplay();
+        this.floorDisplay = new FloorDisplay();
         this.externalPanel = new ExternalPanel(this);
     }
 }
