@@ -8,7 +8,6 @@ import org.example.elevatorsystem.interfaces.requestselection.IRequestSelectionS
 import org.example.elevatorsystem.models.ElevatorCar;
 import org.example.elevatorsystem.models.Floor;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

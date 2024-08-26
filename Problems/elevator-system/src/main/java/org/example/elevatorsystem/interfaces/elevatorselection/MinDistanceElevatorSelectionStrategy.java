@@ -1,7 +1,6 @@
 package org.example.elevatorsystem.interfaces.elevatorselection;
 
 import lombok.NonNull;
-import org.example.elevatorsystem.enums.Direction;
 import org.example.elevatorsystem.exceptions.NotFoundException;
 import org.example.elevatorsystem.models.ElevatorCar;
 import org.example.elevatorsystem.models.Request;
