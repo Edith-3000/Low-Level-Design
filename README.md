@@ -19,7 +19,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Builder](https://refactoring.guru/design-patterns/builder)
 - [Prototype](https://refactoring.guru/design-patterns/prototype)
 ### Structural Patterns
-- [Adapter](https://refactoring.guru/design-patterns/adapter)
+- [Adapter](https://refactoring.guru/design-patterns/adapter) ✅
 - [Facade](https://refactoring.guru/design-patterns/facade)
 - [Decorator](https://refactoring.guru/design-patterns/decorator)
 - [Composite](https://refactoring.guru/design-patterns/composite)
@@ -58,7 +58,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Design Hotel Management System](problems/hotel-management-system.md)
 - [Design LinkedIn](problems/linkedin.md)
 - [Design a Social Network like Facebook](problems/social-networking-service.md)
-- [Design an Elevator System](problems/elevator-system.md)
+- [Design an Elevator System](problems/elevator-system.md) ✅
 - [Design a Library Management System](problems/library-management-system.md)
 - [Design Restaurant Management System](problems/restaurant-management-system.md)
 - [Design Airline Management System](problems/airline-management-system.md)
