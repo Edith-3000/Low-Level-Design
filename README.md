@@ -109,7 +109,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Fault Tolerance](https://www.cockroachlabs.com/blog/what-is-fault-tolerance/)
 - [Consensus Algorithms](https://medium.com/@sourabhatta1819/consensus-in-distributed-system-ac79f8ba2b8c)
 - [Gossip Protocol](http://highscalability.com/blog/2023/7/16/gossip-protocol-explained.html)
-- [Service Discovery](https://blog.algomaster.io/p/0204da93-f0e9-49b9-a88a-cb20b9931575)
+- [Service Discovery](https://blog.algomaster.io/p/0204da93-f0e9-49b9-a88a-cb20b9931575) ✅
 - [Disaster Recovery](https://cloud.google.com/learn/what-is-disaster-recovery) ✅
 - [Distributed Tracing](https://www.dynatrace.com/news/blog/what-is-distributed-tracing/)
 
