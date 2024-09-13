@@ -20,7 +20,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Prototype](https://refactoring.guru/design-patterns/prototype)
 ### Structural Patterns
 - [Adapter](https://refactoring.guru/design-patterns/adapter) ✅
-- [Facade](https://refactoring.guru/design-patterns/facade)
+- [Facade](https://refactoring.guru/design-patterns/facade) ✅
 - [Decorator](https://refactoring.guru/design-patterns/decorator)
 - [Composite](https://refactoring.guru/design-patterns/composite)
 ### Behavioral Patterns
@@ -118,7 +118,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Vertical vs Horizontal Scaling](https://blog.algomaster.io/p/system-design-vertical-vs-horizontal-scaling)
 - [Stateful vs Stateless Design](https://blog.algomaster.io/p/741dff8e-10ea-413e-8dd2-be57434917d2)
 - [Strong vs Eventual Consistency](https://blog.algomaster.io/p/7d9da525-fe25-4e16-94e8-8056e7c57934)
-- [Read-Through vs Write-Through Cache](https://blog.algomaster.io/p/59cae60d-9717-4e20-a59e-759e370db4e5)
+- [Read-Through vs Write-Through Cache](https://blog.algomaster.io/p/59cae60d-9717-4e20-a59e-759e370db4e5) ✅
 - [Push vs Pull Architecture](https://blog.algomaster.io/p/af5fe2fe-9a4f-4708-af43-184945a243af)
 - [Long-polling vs WebSockets](https://blog.algomaster.io/p/60bfcee4-8ac5-4500-a557-a04c8cbcaf48)
 - [REST vs RPC](https://aws.amazon.com/compare/the-difference-between-rpc-and-rest/)
