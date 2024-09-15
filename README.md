@@ -124,7 +124,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [REST vs RPC](https://aws.amazon.com/compare/the-difference-between-rpc-and-rest/)
 - [Latency vs Throughput](https://aws.amazon.com/compare/the-difference-between-throughput-and-latency/) ✅
 - [Synchronous vs. asynchronous communications](https://blog.algomaster.io/p/aec1cebf-6060-45a7-8e00-47364ca70761)
-- [Batch Processing vs Stream Processing](https://blog.algomaster.io/p/d9442268-03d8-4f55-a103-7a3d4fb54661)
+- [Batch Processing vs Stream Processing](https://blog.algomaster.io/p/d9442268-03d8-4f55-a103-7a3d4fb54661) ✅
 
 ## 🛠️ System Design Building Blocks
 - [Databases Types](https://blog.algomaster.io/p/15-types-of-databases)
@@ -138,7 +138,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Consistency Patterns](https://systemdesign.one/consistency-patterns/)
 - [HeartBeats](https://blog.algomaster.io/p/heartbeats-in-distributed-systems) ✅
 - [Circuit Breaker](https://medium.com/geekculture/design-patterns-for-microservices-circuit-breaker-pattern-276249ffab33) ✅
-- [Idempotency](https://blog.algomaster.io/p/ff43e079-98db-428d-83f7-fd34697df678)
+- [Idempotency](https://blog.algomaster.io/p/ff43e079-98db-428d-83f7-fd34697df678) ✅
 - [Database Scaling](https://blog.algomaster.io/p/system-design-how-to-scale-a-database)
 - [Data Replication](https://redis.com/blog/what-is-data-replication/)
 - [Data Redundancy](https://blog.algomaster.io/p/489440f1-9c80-4241-9ec8-de156964c3b9)
