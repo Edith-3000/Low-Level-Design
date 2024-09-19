@@ -3,13 +3,10 @@ package org.example.onlineshopping.services;
 import lombok.NonNull;
 import org.example.onlineshopping.models.Product;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 public class InventoryService {
     private static volatile InventoryService instance;

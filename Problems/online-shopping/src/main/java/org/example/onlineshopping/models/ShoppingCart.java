@@ -14,7 +14,7 @@ public class ShoppingCart {
     }
 
     public void addItem(@NonNull final Product product, final int quantity) {
-        items.put(product, items.getOrDefault(product, 0));
+        items.put(product, items.getOrDefault(product, 0) + quantity);
     }
 
     public Map<Product, Integer> getItems() {

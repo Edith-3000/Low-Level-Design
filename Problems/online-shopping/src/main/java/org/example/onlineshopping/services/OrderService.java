@@ -72,10 +72,10 @@ public class OrderService {
         Order order = new Order(orderId, user, shoppingCart);
         user.addOrder(order);
 
-        notificationService.notifyObservers(order);
-
         System.out.println(orderId + " placed for user: " + user.getName() + " at "
                 + ZonedDateTime.now(ZoneId.of("Asia/Kolkata")).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+
+        notificationService.notifyObservers(order);
 
         return order;
     }
