@@ -11,11 +11,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class InventoryService {
     private static volatile InventoryService instance;
     private final Map<String, Product> products;
-    private final Map<String, ReentrantLock> productLocks;
 
     private InventoryService() {
         products = new ConcurrentHashMap<>();
-        productLocks = new ConcurrentHashMap<>();
     }
 
     public static InventoryService getInstance() {
@@ -32,7 +30,6 @@ public class InventoryService {
 
     public void addProduct(@NonNull final Product product) {
         products.putIfAbsent(product.getId(), product);
-        productLocks.putIfAbsent(product.getId(), new ReentrantLock());
     }
 
     public List<Product> getProducts() {
@@ -43,8 +40,10 @@ public class InventoryService {
         Product product = products.get(productId);
 
         if (product != null) {
-            int availableQuantity = product.getQuantity() - product.getReservedQuantity();
-            return (availableQuantity >= quantity);
+            synchronized (product.getLock()) {
+                int availableQuantity = product.getQuantity() - product.getReservedQuantity();
+                return (availableQuantity >= quantity);
+            }
         }
 
         return false;
@@ -55,7 +54,9 @@ public class InventoryService {
         Product product = products.get(productId);
 
         if (product != null && isProductAvailable(productId, quantity)) {
-            product.reserveQuantity(quantity);
+            synchronized (product.getLock()) {
+                product.reserveQuantity(quantity);
+            }
             return true;
         }
 
@@ -67,7 +68,9 @@ public class InventoryService {
         Product product = products.get(productId);
 
         if (product != null) {
-            product.releaseReservedQuantity(quantity);
+            synchronized (product.getLock()) {
+                product.releaseReservedQuantity(quantity);
+            }
         }
     }
 
@@ -76,7 +79,9 @@ public class InventoryService {
         Product product = products.get(productId);
 
         if (product != null) {
-            return product.reduceQuantity(quantity);  // Final reduction after order placement
+            synchronized (product.getLock()) {
+                return product.reduceQuantity(quantity);  // Final reduction after order placement
+            }
         }
 
         return false;

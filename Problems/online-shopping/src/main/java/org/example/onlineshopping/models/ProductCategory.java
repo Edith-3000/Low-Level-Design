@@ -10,4 +10,9 @@ public class ProductCategory {
     public ProductCategory(@NonNull final String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

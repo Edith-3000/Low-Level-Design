@@ -17,7 +17,7 @@ public class OrderService {
     private final ReservationService reservationService = ReservationService.getInstance();
     private final NotificationService notificationService = NotificationService.getInstance();
 
-    private OrderService() {};
+    private OrderService() {}
 
     public static OrderService getInstance() {
         if (instance == null) {

@@ -32,42 +32,46 @@ public class Product {
     }
 
     public int getQuantity() {
-        synchronized (lock) {
-            return quantity;
-        }
+        return quantity;
     }
 
     public int getReservedQuantity() {
-        synchronized (lock) {
-            return reservedQuantity;
-        }
+        return reservedQuantity;
     }
 
     // Temporarily reserve quantity (reduce available stock)
     public void reserveQuantity(final int quantity) {
-        synchronized (lock) {
-            this.reservedQuantity += quantity;
-        }
+        this.reservedQuantity += quantity;
     }
 
     // Release reserved quantity (restore available stock)
     public void releaseReservedQuantity(final int quantityToRelease) {
-        synchronized (lock) {
-            if (reservedQuantity >= quantityToRelease) {
-                reservedQuantity -= quantityToRelease;
-            }
+        if (reservedQuantity >= quantityToRelease) {
+            reservedQuantity -= quantityToRelease;
         }
     }
 
     // Permanently reduce quantity after order placement
     public boolean reduceQuantity(final int quantityToReduce) {
-        synchronized (lock) {
-            if (this.quantity >= quantityToReduce) {
-                this.quantity -= quantityToReduce;
-                return true;
-            }
+        if (this.quantity >= quantityToReduce) {
+            this.quantity -= quantityToReduce;
+            return true;
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        synchronized (lock) {
+            return "Product {" +
+                    "id='" + id + '\'' +
+                    ", name='" + name + '\'' +
+                    ", description='" + description + '\'' +
+                    ", cost=" + cost +
+                    ", quantityAvailable=" + (quantity - reservedQuantity) +
+                    ", category=" + category +
+                    '}';
+        }
     }
 }

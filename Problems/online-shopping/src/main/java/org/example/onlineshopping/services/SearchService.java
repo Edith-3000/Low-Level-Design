@@ -10,7 +10,7 @@ public class SearchService {
     private static volatile SearchService instance;
     private ISearchStrategy searchStrategy;
 
-    private SearchService() {};
+    private SearchService() {}
 
     public static SearchService getInstance() {
         if (instance == null) {
