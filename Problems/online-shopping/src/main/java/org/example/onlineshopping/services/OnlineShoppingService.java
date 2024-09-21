@@ -87,37 +87,40 @@ public class OnlineShoppingService {
     }
 
     public void placeOrder(@NonNull final ShoppingCart shoppingCart, @NonNull final User user, @NonNull final PaymentMethod paymentMethod) {
-        new Thread(() -> {
-            Order order = orderService.placeOrder(shoppingCart, user, paymentMethod);
+        Thread orderProcessingThread = new Thread(() -> {
+            try {
+                Order order = orderService.placeOrder(shoppingCart, user, paymentMethod);
 
-            if (order == null) {
-                // Gracefully stop the thread if order is null
-                return;
+                if (order == null) {
+                    // Gracefully stop the thread if order is null
+                    return;
+                }
+
+                // Simulate random delay between order placement and shipping
+                sleepRandomTime(500, 2000); // Random delay
+
+                // Ship the order
+                orderService.shipOrder(order);
+
+                // Simulate random delay between shipping and delivery
+                sleepRandomTime(1000, 3000); // Random delay
+
+                // Deliver the order
+                orderService.deliverOrder(order);
+            } catch (InterruptedException e) {
+                // Handle the interrupt properly and exit the thread gracefully
+                System.out.println("Order processing thread was interrupted, exiting.");
+                Thread.currentThread().interrupt(); // Preserve the interrupted status
             }
+        });
 
-            // Simulate random delay between order placement and shipping
-            sleepRandomTime(500, 2000); // Random delay
-
-            // Ship the order
-            orderService.shipOrder(order);
-
-            // Simulate random delay between shipping and delivery
-            sleepRandomTime(1000, 3000); // Random delay
-
-            // Deliver the order
-            orderService.deliverOrder(order);
-        }).start();
+        orderProcessingThread.start();
     }
 
-    private void sleepRandomTime(int minMillis, int maxMillis) {
+    private void sleepRandomTime(int minMillis, int maxMillis) throws InterruptedException {
         Random random = new Random();
         int delay = random.nextInt(maxMillis - minMillis + 1) + minMillis; // Random delay between min and max
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();  // Properly handle interruptions
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(delay);  // This can throw InterruptedException
     }
 
     public void registerNotifier(INotificationObserver notificationObserver) {

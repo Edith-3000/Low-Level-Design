@@ -84,8 +84,9 @@ public class Main {
         shoppingService.setSearchStrategy(nameSearchStrategy);
 
         // Simulate user actions in separate threads
-        executor.submit(() -> simulateShoppingExperience(shoppingService, user1, cart1, asusLaptop, 2, creditCardPayment));
-        executor.submit(() -> simulateShoppingExperience(shoppingService, user2, cart2, nikeShoes, 1, payPalPayment));
+        executor.submit(() -> simulateShoppingExperience(shoppingService, user1, cart1, asusLaptop, 3, creditCardPayment));
+//        executor.submit(() -> simulateShoppingExperience(shoppingService, user2, cart2, nikeShoes, 1, payPalPayment));
+        executor.submit(() -> simulateShoppingExperience(shoppingService, user2, cart2, asusLaptop, 3, payPalPayment));
         executor.submit(() -> simulateShoppingExperience(shoppingService, user3, cart3, fictionBook, 3, creditCardPayment));
         executor.submit(() -> simulateShoppingExperience(shoppingService, user4, cart4, coffeeMaker, 1, payPalPayment));
         executor.submit(() -> simulateShoppingExperience(shoppingService, user5, cart5, proteinPowder, 4, creditCardPayment));
@@ -105,8 +106,9 @@ public class Main {
     // Simulates a user shopping experience
     public static void simulateShoppingExperience(OnlineShoppingService shoppingService, User user, ShoppingCart cart,
                                                   Product product, int quantity, PaymentMethod paymentMethod) {
-        // Search
-        shoppingService.search("Lapt");
+        // Search for a substring of the product name
+        String searchQuery = product.getName().substring(0, Math.min(product.getName().length(), 4)); // Using first 4 characters
+        shoppingService.search(searchQuery);
 
         // Add to cart and reserve product
         shoppingService.addToCart(cart, product, quantity, user);
