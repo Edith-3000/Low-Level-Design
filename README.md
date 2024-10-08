@@ -70,7 +70,7 @@ This repository contains resources to learn Low Level Design (LLD) / Object Orie
 - [Design Movie Ticket Booking System](problems/movie-ticket-booking-system.md)
 - [Design Splitwise](problems/splitwise.md) - ✅
 - [Design a Snake and Ladder game](problems/snake-and-ladder.md)
-- [Design Online Shopping System like Amazon](problems/online-shopping-service.md)
+- [Design Online Shopping System like Amazon](problems/online-shopping-service.md) ✅
 - [Design Online Stock Brokerage System](problems/online-stock-brokerage-system.md)
 - [Design CricInfo](problems/cricinfo.md)
 - [Design Chess Game](problems/chess-game.md)
@@ -148,16 +148,16 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Proxy Server](https://www.fortinet.com/resources/cyberglossary/proxy-server)
 - [Message Queues](https://blog.algomaster.io/p/7a468472-87f1-4b5c-98ba-cf2f1e0e193d)
 - [Checksums](https://blog.algomaster.io/p/what-are-checksums) ✅
-- [WebSockets](https://www.pubnub.com/guides/websockets/)
+- [WebSockets](https://www.pubnub.com/guides/websockets/) ✅
 - [Bloom Filters](https://www.enjoyalgorithms.com/blog/bloom-filter)
 - [API Gateway](https://www.nginx.com/learn/api-gateway/)
 - [Microservices Guidelines](https://newsletter.systemdesign.one/p/netflix-microservices)
 - [Distributed Locking](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
 
 ## 🖇️ System Design Architectural Patterns
-- [Client-Server Architecture](https://www.redswitches.com/blog/client-server-architecture/)
+- [Client-Server Architecture](https://www.redswitches.com/blog/client-server-architecture/) ✅
 - [Microservices Architecture](https://medium.com/hashmapinc/the-what-why-and-how-of-a-microservices-architecture-4179579423a9)
-- [Serverless Architecture](https://www.datadoghq.com/knowledge-center/serverless-architecture/)
+- [Serverless Architecture](https://www.datadoghq.com/knowledge-center/serverless-architecture/) ✅
 - [Event-Driven Architecture](https://www.confluent.io/learn/event-driven-architecture/)
 - [Peer-to-Peer (P2P) Architecture](https://www.spiceworks.com/tech/networking/articles/what-is-peer-to-peer/)
 
