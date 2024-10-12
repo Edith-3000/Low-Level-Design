@@ -142,7 +142,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Database Scaling](https://blog.algomaster.io/p/system-design-how-to-scale-a-database)
 - [Data Replication](https://redis.com/blog/what-is-data-replication/)
 - [Data Redundancy](https://blog.algomaster.io/p/489440f1-9c80-4241-9ec8-de156964c3b9)
-- [Database Sharding](https://blog.algomaster.io/p/what-is-database-sharding)
+- [Database Sharding](https://blog.algomaster.io/p/what-is-database-sharding) ✅
 - [Database Architectures](https://www.mongodb.com/developer/products/mongodb/active-active-application-architectures/)
 - [Failover](https://avinetworks.com/glossary/failover/)
 - [Proxy Server](https://www.fortinet.com/resources/cyberglossary/proxy-server)
