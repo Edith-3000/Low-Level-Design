@@ -145,7 +145,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Database Sharding](https://blog.algomaster.io/p/what-is-database-sharding) ✅
 - [Database Architectures](https://www.mongodb.com/developer/products/mongodb/active-active-application-architectures/)
 - [Failover](https://avinetworks.com/glossary/failover/)
-- [Proxy Server](https://www.fortinet.com/resources/cyberglossary/proxy-server)
+- [Proxy Server](https://www.fortinet.com/resources/cyberglossary/proxy-server) ✅
 - [Message Queues](https://blog.algomaster.io/p/7a468472-87f1-4b5c-98ba-cf2f1e0e193d)
 - [Checksums](https://blog.algomaster.io/p/what-are-checksums) ✅
 - [WebSockets](https://www.pubnub.com/guides/websockets/) ✅
