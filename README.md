@@ -149,7 +149,7 @@ This repository contains resources to learn System Design concepts and prepare f
 - [Message Queues](https://blog.algomaster.io/p/7a468472-87f1-4b5c-98ba-cf2f1e0e193d)
 - [Checksums](https://blog.algomaster.io/p/what-are-checksums) ✅
 - [WebSockets](https://www.pubnub.com/guides/websockets/) ✅
-- [Bloom Filters](https://www.enjoyalgorithms.com/blog/bloom-filter)
+- [Bloom Filters](https://www.enjoyalgorithms.com/blog/bloom-filter) ✅
 - [API Gateway](https://www.nginx.com/learn/api-gateway/)
 - [Microservices Guidelines](https://newsletter.systemdesign.one/p/netflix-microservices)
 - [Distributed Locking](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
