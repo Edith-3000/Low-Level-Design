@@ -6,17 +6,22 @@ import io.github.kapilchoudhary.snakeandfoodgame.model.Board;
 import io.github.kapilchoudhary.snakeandfoodgame.model.BoardCell;
 import io.github.kapilchoudhary.snakeandfoodgame.model.Snake;
 import io.github.kapilchoudhary.snakeandfoodgame.model.food.Food;
+import io.github.kapilchoudhary.snakeandfoodgame.observer.Observer;
+import io.github.kapilchoudhary.snakeandfoodgame.observer.Subject;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class GameController {
+public class GameController implements Subject {
     @Getter private final Board board;
     @Getter private final Snake snake;
     @Getter private final boolean hasWalls;
     private volatile boolean running; // volatile for thread safety
     private int score;
+    private final List<Observer> observers;
 
     public GameController(@NonNull final Board board, @NonNull final Snake snake, final boolean hasWalls) {
         this.board = board;
@@ -24,6 +29,7 @@ public class GameController {
         this.hasWalls = hasWalls;
         this.running = true;
         this.score = 0;
+        this.observers = new ArrayList<>();
     }
 
     public void start() {
@@ -32,6 +38,7 @@ public class GameController {
 
             while (running) {
                 String input = sc.nextLine();
+                input = String.valueOf(Character.toLowerCase(input.charAt(0)));
 
                 Direction inputDirection = switch (input) {
                     case "w" -> Direction.UP;
@@ -41,17 +48,21 @@ public class GameController {
                     default -> null;
                 };
 
-                // Should also handle the case when snake's current direction = input direction
+                // TODO: Also handle the case when snake's current direction = input direction
                 if (inputDirection != null) {
                     snake.queueDirection(inputDirection);
                 }
+            }
+
+            if (!running) {
+                sc.close();
             }
         }, "UserInputThread").start();
 
         while (running) {
             tick();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
@@ -81,7 +92,7 @@ public class GameController {
 
         if (boardBoundaryCrossed || snakeBitesItself) {
             running = false;
-            end();
+            notifyGameOver();
             return;
         }
 
@@ -90,11 +101,13 @@ public class GameController {
         if (nextHeadFood != null) {
             if (nextHeadFood.getFoodType().equals(FoodType.POISONOUS)) {
                 running = false;
-                end();
+                notifyGameOver();
                 return;
             }
 
             score += nextHeadFood.getScore();
+            notifyScoreUpdate();
+
             nextHead.setFood(null);
 
             snake.moveHead(nextHead);
@@ -104,9 +117,33 @@ public class GameController {
             snake.moveHead(nextHead);
             snake.moveTail();
         }
+
+        board.printBoard(snake);
     }
 
-    private void end() {
-        System.out.println("Game over, score: " + score);
+//    private void end() {
+//        System.out.println("Game over, score: " + score);
+//    }
+
+    @Override
+    public void addObserver(@NonNull final Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(@NonNull final Observer observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyScoreUpdate() {
+        for (Observer observer: observers) {
+            observer.onScoreUpdate(score);
+        }
+    }
+
+    public void notifyGameOver() {
+        for (Observer observer: observers) {
+            observer.onGameOver(score);
+        }
     }
 }

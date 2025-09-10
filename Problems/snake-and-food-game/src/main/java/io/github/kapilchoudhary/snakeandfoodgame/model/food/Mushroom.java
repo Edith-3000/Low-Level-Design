@@ -4,6 +4,6 @@ import io.github.kapilchoudhary.snakeandfoodgame.enums.FoodType;
 
 public class Mushroom extends Food {
     public Mushroom() {
-        super(FoodType.POISONOUS, -1);
+        super(FoodType.POISONOUS, 0);
     }
 }

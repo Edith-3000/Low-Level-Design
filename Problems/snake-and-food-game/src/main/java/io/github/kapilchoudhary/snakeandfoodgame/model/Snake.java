@@ -40,7 +40,7 @@ public class Snake {
         return snakeBody.peekLast();
     }
 
-    // To check if the snake bites itself, if the boardCell becomes the head
+    // To check if the snake bites itself, if the param boardCell becomes the next head
     public boolean bitesItself(@NonNull final BoardCell boardCell) {
         boolean boardCellPartOfSnakeBody = snakebodyMap.containsKey(boardCell);
 
