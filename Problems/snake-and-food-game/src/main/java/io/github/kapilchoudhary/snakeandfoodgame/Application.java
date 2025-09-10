@@ -17,7 +17,7 @@ public class Application {
 
         board.placeRandomFood(snake.getSnakebodyMap());
 
-        GameController gameController = new GameController(board, snake, true);
+        GameController gameController = new GameController(board, snake, false);
 
         Observer consoleObserver = new ConsoleObserver();
         gameController.addObserver(consoleObserver);
