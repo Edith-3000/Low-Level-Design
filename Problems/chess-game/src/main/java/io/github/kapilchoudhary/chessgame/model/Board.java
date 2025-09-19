@@ -3,9 +3,12 @@ package io.github.kapilchoudhary.chessgame.model;
 import io.github.kapilchoudhary.chessgame.constants.AppConstants;
 import io.github.kapilchoudhary.chessgame.enums.CellType;
 import io.github.kapilchoudhary.chessgame.enums.PieceType;
+import io.github.kapilchoudhary.chessgame.model.move.Move;
 import io.github.kapilchoudhary.chessgame.model.piece.*;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.util.List;
 
 public class Board {
     @Getter private final int rows;
@@ -62,8 +65,35 @@ public class Board {
         return boardCells[row][col];
     }
 
-    public boolean isCellUnderAttack(@NonNull final BoardCell boardCell) {
+    public boolean isCellUnderAttack(@NonNull final BoardCell boardCell, final Move lastMove) {
+        Piece piece = boardCell.getPiece();
+        if (piece == null) {
+            return false;
+        }
 
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if ((i == boardCell.getRow()) && (j == boardCell.getCol())) {
+                    continue;
+                }
+
+                BoardCell currCell = boardCells[i][j];
+
+                if (currCell.getPiece() == null || currCell.getPiece().getPieceType() == piece.getPieceType()) {
+                    continue;
+                }
+
+                List<Move> legalMoves = piece.getPieceMovementStrategy().getLegalMoves(boardCells[i][j], lastMove, boardInstance);
+
+                for (Move move: legalMoves) {
+                    if (move.getTargetCell() == boardCell) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     private void embedBoardCells() {
@@ -130,5 +160,18 @@ public class Board {
             boardCells[AppConstants.ROW_SIX][col].setPiece(whitePawn);
             boardCells[AppConstants.ROW_ONE][col].setPiece(blackPawn);
         }
+    }
+
+    public BoardCell getKingCell(@NonNull final PieceType pieceType) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Piece piece = boardCells[i][j].getPiece();
+                if ((piece instanceof King) && (piece.getPieceType() == pieceType)) {
+                    return boardCells[i][j];
+                }
+            }
+        }
+
+        return null; // Should not ever happen
     }
 }

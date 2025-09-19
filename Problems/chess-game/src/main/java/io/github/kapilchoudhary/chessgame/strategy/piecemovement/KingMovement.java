@@ -38,20 +38,20 @@ public class KingMovement implements PieceMovementStrategy {
 
             if ((targetCell.getPiece() == null) || king.isOpponent(targetCell.getPiece())) {
                 // simulate move: king moves to target -> cannot be in check
-                if (!wouldLeaveKingInCheck(sourceCell, targetCell)) {
+                if (!wouldLeaveKingInCheck(sourceCell, targetCell, lastMove)) {
                     legalMoves.add(new Move(sourceCell, targetCell));
                 }
             }
 
             // 2) Castling moves (king-side and queen-side)
             // TODO: add the moves into this
-            getCastlingMoves(sourceCell);
+            getCastlingMoves(sourceCell, lastMove);
         }
 
         return legalMoves;
     }
 
-    private boolean wouldLeaveKingInCheck(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell) {
+    private boolean wouldLeaveKingInCheck(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell, final Move lastMove) {
         Board board = Board.getBoardInstance();
 
         Piece king = sourceCell.getPiece();
@@ -60,7 +60,7 @@ public class KingMovement implements PieceMovementStrategy {
         sourceCell.setPiece(null);
         targetCell.setPiece(king);
 
-        boolean inCheck = board.isCellUnderAttack(targetCell);
+        boolean inCheck = board.isCellUnderAttack(targetCell, lastMove);
 
         targetCell.setPiece(capturedPiece);
         sourceCell.setPiece(king);
@@ -68,7 +68,7 @@ public class KingMovement implements PieceMovementStrategy {
         return inCheck;
     }
 
-    public List<Move> getCastlingMoves(@NonNull final BoardCell sourceCell) {
+    public List<Move> getCastlingMoves(@NonNull final BoardCell sourceCell, final Move lastMove) {
         List<Move> castlingMoves = new ArrayList<>();
 
         Board board = Board.getBoardInstance();
@@ -79,7 +79,7 @@ public class KingMovement implements PieceMovementStrategy {
 
         Piece king = sourceCell.getPiece();
 
-        if (!(king instanceof King) || king.isHasMoved() || board.isCellUnderAttack(sourceCell)) {
+        if (!(king instanceof King) || king.isHasMoved() || board.isCellUnderAttack(sourceCell, lastMove)) {
             return castlingMoves;
         }
 
@@ -111,10 +111,10 @@ public class KingMovement implements PieceMovementStrategy {
 
             if (allRightPiecesEmpty) {
                 BoardCell rightBoardCell1 = board.getBoardCell(kingRow, kingCol + 1);
-                boolean rightUnderAttack1 = board.isCellUnderAttack(rightBoardCell1);
+                boolean rightUnderAttack1 = board.isCellUnderAttack(rightBoardCell1, lastMove);
 
                 BoardCell rightBoardCell2 = board.getBoardCell(kingRow, kingCol + 2);
-                boolean rightUnderAttack2 = board.isCellUnderAttack(rightBoardCell2);
+                boolean rightUnderAttack2 = board.isCellUnderAttack(rightBoardCell2, lastMove);
 
                 if (!rightUnderAttack1 && !rightUnderAttack2) {
                     castlingMoves.add(new CastlingMove(sourceCell, rightBoardCell2, rightMostCell, rightBoardCell1));
@@ -148,10 +148,10 @@ public class KingMovement implements PieceMovementStrategy {
 
             if (allLeftPiecesEmpty) {
                 BoardCell leftBoardCell1 = board.getBoardCell(kingRow, kingCol - 1);
-                boolean leftUnderAttack1 = board.isCellUnderAttack(leftBoardCell1);
+                boolean leftUnderAttack1 = board.isCellUnderAttack(leftBoardCell1, lastMove);
 
                 BoardCell leftBoardCell2 = board.getBoardCell(kingRow, kingCol - 2);
-                boolean leftUnderAttack2 = board.isCellUnderAttack(leftBoardCell2);
+                boolean leftUnderAttack2 = board.isCellUnderAttack(leftBoardCell2, lastMove);
 
                 if (!leftUnderAttack1 && !leftUnderAttack2) {
                     castlingMoves.add(new CastlingMove(sourceCell, leftBoardCell2, leftMostCell, leftBoardCell1));

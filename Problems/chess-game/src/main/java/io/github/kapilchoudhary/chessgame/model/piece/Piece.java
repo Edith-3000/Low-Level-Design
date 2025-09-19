@@ -1,18 +1,22 @@
 package io.github.kapilchoudhary.chessgame.model.piece;
 
 import io.github.kapilchoudhary.chessgame.enums.PieceType;
+import io.github.kapilchoudhary.chessgame.strategy.piecemovement.PieceMovementStrategy;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 public abstract class Piece {
     @Getter protected final PieceType pieceType;
     @Getter protected boolean isCaptured;
     @Getter protected boolean hasMoved;
+    @Getter @Setter protected PieceMovementStrategy pieceMovementStrategy;
 
     public Piece(@NonNull final PieceType pieceType) {
         this.pieceType = pieceType;
         this.isCaptured = false;
         this.hasMoved = false;
+        this.pieceMovementStrategy = null;
     }
 
     public void capture() {

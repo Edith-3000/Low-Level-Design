@@ -1,6 +1,7 @@
 package io.github.kapilchoudhary.chessgame.strategy.playermovement;
 
 import io.github.kapilchoudhary.chessgame.constants.AppConstants;
+import io.github.kapilchoudhary.chessgame.enums.PieceType;
 import io.github.kapilchoudhary.chessgame.model.Board;
 import io.github.kapilchoudhary.chessgame.model.BoardCell;
 import io.github.kapilchoudhary.chessgame.model.move.Move;
@@ -17,7 +18,7 @@ public class HumanMovement implements PlayerMovementStrategy {
     }
 
     @Override
-    public Move makeMove(@NonNull final Board board) {
+    public Move makeMove(@NonNull final Board board, @NonNull final PieceType pieceType, final Move lastMove) {
         System.out.println("Type move in the format (source target) and hit enter: a5 d7");
 
         String input = scanner.nextLine().trim();
