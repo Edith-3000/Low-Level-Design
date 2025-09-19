@@ -9,7 +9,7 @@ import lombok.Setter;
 public abstract class Piece {
     @Getter protected final PieceType pieceType;
     @Getter protected boolean isCaptured;
-    @Getter protected boolean hasMoved;
+    @Getter @Setter protected boolean hasMoved;
     @Getter @Setter protected PieceMovementStrategy pieceMovementStrategy;
 
     public Piece(@NonNull final PieceType pieceType) {

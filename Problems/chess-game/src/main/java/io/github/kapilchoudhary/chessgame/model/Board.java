@@ -8,6 +8,7 @@ import io.github.kapilchoudhary.chessgame.model.piece.*;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
@@ -15,11 +16,13 @@ public class Board {
     @Getter private final int columns;
     private static Board boardInstance;
     private final BoardCell[][] boardCells;
+    private final List<Piece> pieces;
 
     private Board(final int rows, final int columns) {
         this.rows = rows;
         this.columns = columns;
         this.boardCells = new BoardCell[rows][columns];
+        this.pieces = new ArrayList<>();
     }
 
     public static void init(final int rows, final int columns) {
@@ -38,6 +41,15 @@ public class Board {
         placeKnights();
         placeRooks();
         placePawns();
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Piece piece = boardCells[i][j].getPiece();
+                if (piece != null) {
+                    pieces.add(boardCells[i][j].getPiece());
+                }
+            }
+        }
     }
 
     public static Board getBoardInstance() {
