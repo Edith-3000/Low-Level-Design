@@ -13,6 +13,7 @@ import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
     @Getter private final int rows;
@@ -20,6 +21,15 @@ public class Board {
     private static Board boardInstance;
     private final BoardCell[][] boardCells;
     private final List<Piece> pieces;
+
+    private static final Map<Class<? extends Piece>, String[]> pieceSymbols = Map.of(
+            King.class, new String[]{"♔", "♚"},
+            Queen.class, new String[]{"♕", "♛"},
+            Rook.class, new String[]{"♖", "♜"},
+            Bishop.class, new String[]{"♗", "♝"},
+            Knight.class, new String[]{"♘", "♞"},
+            Pawn.class, new String[]{"♙", "♟"}
+    );
 
     private Board(final int rows, final int columns) {
         this.rows = rows;
@@ -230,7 +240,90 @@ public class Board {
         }
     }
 
-    public void displayBoard() {
+    public List<Move> getAllLegalMoves(@NonNull final PieceType pieceType, final Move lastMove) {
+        List<Move> allLegalMoves = new ArrayList<>();
 
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                BoardCell cell = boardCells[row][col];
+                Piece piece = cell.getPiece();
+
+                if ((piece != null) && (piece.getPieceType() == pieceType)) {
+                    allLegalMoves.addAll(piece.getPieceMovementStrategy().getLegalMoves(cell, lastMove, boardInstance));
+                }
+            }
+        }
+
+        return allLegalMoves;
+    }
+
+    public void displayBoard() {
+        System.out.println();
+
+        System.out.print("    ");
+        for (int col = 0; col < columns; col++) {
+            System.out.print(" " + (char) ('a' + col) + "   ");
+        }
+        System.out.println();
+
+        // Top border
+        System.out.print("   ┌");
+        for (int col = 0; col < columns - 1; col++) {
+            System.out.print("───┬");
+        }
+        System.out.println("───┐");
+
+        for (int row = 0; row < rows; row++) {
+            // Row label on left
+            System.out.print((rows - row) + "  │");
+
+            for (int col = 0; col < columns; col++) {
+                BoardCell cell = boardCells[row][col];
+                boolean isWhiteSquare = (row + col) % 2 == 0;
+
+                String bgColor = isWhiteSquare ? "\u001B[47m" : "\u001B[40m";
+                String fgColor = "\u001B[30m";
+                String reset = "\u001B[0m";
+
+                String symbol = " ";
+                if (cell.getPiece() != null) {
+                    symbol = getPieceSymbol(cell.getPiece());
+                    fgColor = (cell.getPiece().getPieceType() == PieceType.WHITE) ? "\u001B[1;37m" : "\u001B[1;30m";
+                }
+
+                System.out.print(bgColor + fgColor + " " + symbol + " " + reset + "│");
+            }
+
+            // Row label on right
+            System.out.println(" " + (rows - row));
+
+            if (row < rows - 1) {
+                System.out.print("   ├");
+                for (int col = 0; col < columns - 1; col++) {
+                    System.out.print("───┼");
+                }
+                System.out.println("───┤");
+            }
+        }
+
+        // Bottom border
+        System.out.print("   └");
+        for (int col = 0; col < columns - 1; col++) {
+            System.out.print("───┴");
+        }
+        System.out.println("───┘");
+
+        // Column headers again
+        System.out.print("    ");
+        for (int col = 0; col < columns; col++) {
+            System.out.print(" " + (char) ('a' + col) + "   ");
+        }
+        System.out.println();
+    }
+
+    private String getPieceSymbol(Piece piece) {
+        String[] symbols = pieceSymbols.get(piece.getClass());
+        if (symbols == null) return "?";
+        return piece.getPieceType() == PieceType.WHITE ? symbols[0] : symbols[1];
     }
 }

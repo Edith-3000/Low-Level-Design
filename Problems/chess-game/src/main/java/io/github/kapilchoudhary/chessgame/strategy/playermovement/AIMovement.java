@@ -16,18 +16,7 @@ public class AIMovement implements PlayerMovementStrategy {
 
     @Override
     public Move makeMove(@NonNull final Board board, @NonNull final PieceType pieceType, final Move lastMove) {
-        List<Move> allLegalMoves = new ArrayList<>();
-
-        for (int row = 0; row < board.getRows(); row++) {
-            for (int col = 0; col < board.getColumns(); col++) {
-                BoardCell cell = board.getBoardCell(row, col);
-                Piece piece = cell.getPiece();
-
-                if ((piece != null) && (piece.getPieceType() == pieceType)) {
-                    allLegalMoves.addAll(piece.getPieceMovementStrategy().getLegalMoves(cell, lastMove, board));
-                }
-            }
-        }
+        List<Move> allLegalMoves = board.getAllLegalMoves(pieceType, lastMove);
 
         if (allLegalMoves.isEmpty()) {
             return null;

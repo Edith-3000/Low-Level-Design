@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player {
+public class Player {
     @Getter protected final String id;
     @Getter protected final String name;
     @Getter protected final PieceType pieceType;

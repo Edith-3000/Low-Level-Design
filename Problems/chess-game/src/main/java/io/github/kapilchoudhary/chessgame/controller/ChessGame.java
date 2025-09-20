@@ -36,89 +36,39 @@ public class ChessGame {
     }
 
     public void start() {
-        if (playerA.getPieceType() == PieceType.WHITE) {
-            currentPlayer = playerA;
-        } else {
-            currentPlayer = playerB;
-        }
+        setStartPlayer();
 
         while (running) {
             board.displayBoard();
 
-            Move lastMove = null;
-            if (!gameMoves.isEmpty()) {
-                lastMove = gameMoves.get(gameMoves.size() - 1);
-            }
+            Move lastMove = getLastMove();
 
-            BoardCell kingCell = board.getKingCell(currentPlayer.getPieceType());
+            List<Move> legalMoves = board.getAllLegalMoves(currentPlayer.getPieceType(), lastMove);
 
-            // This is check
-            if (board.isCellUnderAttack(kingCell, lastMove)) {
-                List<Move> kingLegalMoves = kingCell.getPiece().getPieceMovementStrategy().getLegalMoves(kingCell, lastMove, board);
-                List<Move> validKingLegalMoves = new ArrayList<>();
-
-                // Since Castling not allowed when King in check
-                for (Move move: kingLegalMoves) {
-                    if (!(move instanceof CastlingMove)) {
-                        validKingLegalMoves.add(move);
-                    }
-                }
-
-                // This is checkmate
-                if (validKingLegalMoves.isEmpty()) {
-                    if (currentPlayer == playerA) {
-                        winner = playerB;
-                    } else {
-                        winner = playerA;
-                    }
-                    end();
+            if (legalMoves.isEmpty()) {
+                if (board.isCellUnderAttack(board.getKingCell(currentPlayer.getPieceType()), lastMove)) {
+                    // Checkmate
+                    winner = currentPlayer == playerA ? playerB : playerA;
                 } else {
-                    Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
-
-                    if (!validKingLegalMoves.contains(currentMove)) {
-                        System.out.println("Invalid move, try again!");
-                        continue;
-                    } else {
-                        board.applyMove(currentMove, currentPlayer);
-                        gameMoves.add(currentMove);
-                    }
-
-                    changePlayerTurn();
-                }
-            } else {
-                Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
-
-                // No move left with current player, STALEMATE condition i.e. currentPlayer's King not in check and currentPlayer has 0 legal moves
-                if (currentMove == null) {
+                    // Stalemate
                     isDraw = true;
-                    end();
-                } else if (!isValidMove(currentMove, lastMove)) {
-                    System.out.println("Invalid move, try again!");
-                } else {
-                    board.applyMove(currentMove, currentPlayer);
-                    gameMoves.add(currentMove);
                 }
-
-                changePlayerTurn();
+                end();
+                break;
             }
-        }
-    }
 
-    private boolean isValidMove(@NonNull final Move move, final Move lastMove) {
-        BoardCell sourceCell = move.getSourceCell();
-        BoardCell targetCell = move.getTargetCell();
+            Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
 
-        List<Move> sourceCellLegalMoves = sourceCell.getPiece().getPieceMovementStrategy().getLegalMoves(sourceCell, lastMove, board);
-
-        for (Move legalMove: sourceCellLegalMoves) {
-            // No override of equals() and hasCode() has been done for BoardCell, thereby equality will be
-            // on the basis of reference, it will be correct since we only initialise a BoardCell once to a [row, col]
-            if (targetCell == legalMove.getTargetCell()) {
-                return true;
+            if (!legalMoves.contains(currentMove)) {
+                System.out.println("Invalid move, try again!");
+                continue;
             }
-        }
 
-        return false;
+            board.applyMove(currentMove, currentPlayer);
+            gameMoves.add(currentMove);
+
+            changePlayerTurn();
+        }
     }
 
     private void end() {
@@ -132,10 +82,38 @@ public class ChessGame {
     }
 
     private void changePlayerTurn() {
-        if (currentPlayer == playerA) {
-            currentPlayer = playerB;
-        } else {
-            currentPlayer = playerA;
-        }
+        currentPlayer = (currentPlayer == playerA) ? playerB : playerA;
     }
+
+    private void setStartPlayer() {
+        currentPlayer = (playerA.getPieceType() == PieceType.WHITE)
+                ? playerA
+                : playerB;
+    }
+
+    private Move getLastMove() {
+        Move lastMove = null;
+        if (!gameMoves.isEmpty()) {
+            lastMove = gameMoves.get(gameMoves.size() - 1);
+        }
+
+        return lastMove;
+    }
+
+//    private boolean isValidMove(@NonNull final Move move, final Move lastMove) {
+//        BoardCell sourceCell = move.getSourceCell();
+//        BoardCell targetCell = move.getTargetCell();
+//
+//        List<Move> sourceCellLegalMoves = sourceCell.getPiece().getPieceMovementStrategy().getLegalMoves(sourceCell, lastMove, board);
+//
+//        for (Move legalMove: sourceCellLegalMoves) {
+//            // No override of equals() and hasCode() has been done for BoardCell, thereby equality will be
+//            // on the basis of reference, it will be correct since we only initialise a BoardCell once to a [row, col]
+//            if (targetCell == legalMove.getTargetCell()) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 }
