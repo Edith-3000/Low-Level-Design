@@ -12,7 +12,7 @@ import java.util.List;
 
 public class QueenMovement implements PieceMovementStrategy {
     @Override
-    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Move lastMove, @NonNull final Board board) {
+    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, final Move lastMove, @NonNull final Board board) {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece queen = sourceCell.getPiece();

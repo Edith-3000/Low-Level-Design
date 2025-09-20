@@ -12,7 +12,7 @@ import java.util.List;
 
 public class KnightMovement implements PieceMovementStrategy {
     @Override
-    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Move lastMove, @NonNull final Board board) {
+    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, final Move lastMove, @NonNull final Board board) {
 //        Board board = Board.getBoardInstance();
         List<Move> legalMoves = new ArrayList<>();
 

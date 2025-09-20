@@ -8,5 +8,5 @@ import lombok.NonNull;
 import java.util.List;
 
 public interface PieceMovementStrategy {
-    List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Move lastMove, @NonNull final Board board);
+    List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, final Move lastMove, @NonNull final Board board);
 }

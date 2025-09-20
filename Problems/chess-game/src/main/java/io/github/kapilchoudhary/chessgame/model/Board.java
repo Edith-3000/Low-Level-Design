@@ -8,6 +8,7 @@ import io.github.kapilchoudhary.chessgame.model.move.EnPassantMove;
 import io.github.kapilchoudhary.chessgame.model.move.Move;
 import io.github.kapilchoudhary.chessgame.model.piece.*;
 import io.github.kapilchoudhary.chessgame.model.player.Player;
+import io.github.kapilchoudhary.chessgame.strategy.piecemovement.PieceMovementStrategies;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -141,6 +142,9 @@ public class Board {
         Piece whiteKing = new King(PieceType.WHITE);
         Piece blackKing = new King(PieceType.BLACK);
 
+        whiteKing.setPieceMovementStrategy(PieceMovementStrategies.KING);
+        blackKing.setPieceMovementStrategy(PieceMovementStrategies.KING);
+
         boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_FOUR].setPiece(whiteKing);
         boardCells[AppConstants.ROW_ZERO][AppConstants.COL_FOUR].setPiece(blackKing);
     }
@@ -149,38 +153,80 @@ public class Board {
         Piece whiteQueen = new Queen(PieceType.WHITE);
         Piece blackQueen = new Queen(PieceType.BLACK);
 
+        whiteQueen.setPieceMovementStrategy(PieceMovementStrategies.QUEEN);
+        blackQueen.setPieceMovementStrategy(PieceMovementStrategies.QUEEN);
+
         boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_THREE].setPiece(whiteQueen);
         boardCells[AppConstants.ROW_ZERO][AppConstants.COL_THREE].setPiece(blackQueen);
     }
 
     private void placeBishops() {
-        Piece whiteBishop = new Bishop(PieceType.WHITE);
-        Piece blackBishop = new Bishop(PieceType.BLACK);
+        Piece whiteBishopLeft = new Bishop(PieceType.WHITE);
+        Piece blackBishopLeft = new Bishop(PieceType.BLACK);
 
-        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_TWO].setPiece(whiteBishop);
-        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_TWO].setPiece(blackBishop);
+        whiteBishopLeft.setPieceMovementStrategy(PieceMovementStrategies.BISHOP);
+        blackBishopLeft.setPieceMovementStrategy(PieceMovementStrategies.BISHOP);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_TWO].setPiece(whiteBishopLeft);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_TWO].setPiece(blackBishopLeft);
+
+        Piece whiteBishopRight = new Bishop(PieceType.WHITE);
+        Piece blackBishopRight = new Bishop(PieceType.BLACK);
+
+        whiteBishopRight.setPieceMovementStrategy(PieceMovementStrategies.BISHOP);
+        blackBishopRight.setPieceMovementStrategy(PieceMovementStrategies.BISHOP);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_FIVE].setPiece(whiteBishopRight);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_FIVE].setPiece(blackBishopRight);
     }
 
     private void placeKnights() {
-        Piece whiteKnight = new Knight(PieceType.WHITE);
-        Piece blackKnight = new Knight(PieceType.BLACK);
+        Piece whiteKnightLeft = new Knight(PieceType.WHITE);
+        Piece blackKnightLeft = new Knight(PieceType.BLACK);
 
-        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_ONE].setPiece(whiteKnight);
-        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_ONE].setPiece(blackKnight);
+        whiteKnightLeft.setPieceMovementStrategy(PieceMovementStrategies.KNIGHT);
+        blackKnightLeft.setPieceMovementStrategy(PieceMovementStrategies.KNIGHT);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_ONE].setPiece(whiteKnightLeft);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_ONE].setPiece(blackKnightLeft);
+
+        Piece whiteKnightRight = new Knight(PieceType.WHITE);
+        Piece blackKnightRight = new Knight(PieceType.BLACK);
+
+        whiteKnightRight.setPieceMovementStrategy(PieceMovementStrategies.KNIGHT);
+        blackKnightRight.setPieceMovementStrategy(PieceMovementStrategies.KNIGHT);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_SIX].setPiece(whiteKnightRight);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_SIX].setPiece(blackKnightRight);
     }
 
     private void placeRooks() {
-        Piece whiteRook = new Rook(PieceType.WHITE);
-        Piece blackRook = new Rook(PieceType.BLACK);
+        Piece whiteRookLeft = new Rook(PieceType.WHITE);
+        Piece blackRookLeft = new Rook(PieceType.BLACK);
 
-        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_ZERO].setPiece(whiteRook);
-        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_ZERO].setPiece(blackRook);
+        whiteRookLeft.setPieceMovementStrategy(PieceMovementStrategies.ROOK);
+        blackRookLeft.setPieceMovementStrategy(PieceMovementStrategies.ROOK);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_ZERO].setPiece(whiteRookLeft);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_ZERO].setPiece(blackRookLeft);
+
+        Piece whiteRookRight = new Rook(PieceType.WHITE);
+        Piece blackRookRight = new Rook(PieceType.BLACK);
+
+        whiteRookRight.setPieceMovementStrategy(PieceMovementStrategies.ROOK);
+        blackRookRight.setPieceMovementStrategy(PieceMovementStrategies.ROOK);
+
+        boardCells[AppConstants.ROW_SEVEN][AppConstants.COL_SEVEN].setPiece(whiteRookRight);
+        boardCells[AppConstants.ROW_ZERO][AppConstants.COL_SEVEN].setPiece(blackRookRight);
     }
 
     private void placePawns() {
         for (int col = 0; col < columns; col++) {
             Piece whitePawn = new Pawn(PieceType.WHITE);
             Piece blackPawn = new Pawn(PieceType.BLACK);
+
+            whitePawn.setPieceMovementStrategy(PieceMovementStrategies.PAWN);
+            blackPawn.setPieceMovementStrategy(PieceMovementStrategies.PAWN);
 
             boardCells[AppConstants.ROW_SIX][col].setPiece(whitePawn);
             boardCells[AppConstants.ROW_ONE][col].setPiece(blackPawn);
@@ -262,7 +308,7 @@ public class Board {
 
         System.out.print("    ");
         for (int col = 0; col < columns; col++) {
-            System.out.print(" " + (char) ('a' + col) + "   ");
+            System.out.print(" " + (char) ('a' + col) + "  ");
         }
         System.out.println();
 
@@ -281,14 +327,17 @@ public class Board {
                 BoardCell cell = boardCells[row][col];
                 boolean isWhiteSquare = (row + col) % 2 == 0;
 
-                String bgColor = isWhiteSquare ? "\u001B[47m" : "\u001B[40m";
+//                String bgColor = isWhiteSquare ? "\u001B[47m" : "\u001B[40m";
+//                String fgColor = "\u001B[30m";
+//                String reset = "\u001B[0m";
+                String bgColor = isWhiteSquare ? "\u001B[107m" : "\u001B[48;5;251m";
                 String fgColor = "\u001B[30m";
                 String reset = "\u001B[0m";
 
                 String symbol = " ";
                 if (cell.getPiece() != null) {
                     symbol = getPieceSymbol(cell.getPiece());
-                    fgColor = (cell.getPiece().getPieceType() == PieceType.WHITE) ? "\u001B[1;37m" : "\u001B[1;30m";
+                    fgColor = (cell.getPiece().getPieceType() == PieceType.WHITE) ? "\u001B[1;37m" : "\u001B[30;1m";
                 }
 
                 System.out.print(bgColor + fgColor + " " + symbol + " " + reset + "│");
@@ -316,7 +365,7 @@ public class Board {
         // Column headers again
         System.out.print("    ");
         for (int col = 0; col < columns; col++) {
-            System.out.print(" " + (char) ('a' + col) + "   ");
+            System.out.print(" " + (char) ('a' + col) + "  ");
         }
         System.out.println();
     }

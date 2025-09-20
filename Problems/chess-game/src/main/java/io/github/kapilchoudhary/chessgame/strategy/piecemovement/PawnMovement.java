@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PawnMovement implements PieceMovementStrategy {
     @Override
-    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Move lastMove, @NonNull final Board board) {
+    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, final Move lastMove, @NonNull final Board board) {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece pawn = sourceCell.getPiece();
@@ -70,7 +70,7 @@ public class PawnMovement implements PieceMovementStrategy {
         return legalMoves;
     }
 
-    private List<Move> getDiagonalLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, @NonNull final Move lastMove, @NonNull final Board board) {
+    private List<Move> getDiagonalLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, final Move lastMove, @NonNull final Board board) {
 //        Board board = Board.getBoardInstance();
         List<Move> legalMoves = new ArrayList<>();
 
@@ -108,6 +108,10 @@ public class PawnMovement implements PieceMovementStrategy {
     }
 
     private BoardCell getEnPassantCapturedCell(BoardCell sourceCell, Move lastMove) {
+        if (lastMove == null) {
+            return null;
+        }
+
         Piece movedPiece = lastMove.getTargetCell().getPiece();
         if (!(movedPiece instanceof Pawn)) {
             return null;

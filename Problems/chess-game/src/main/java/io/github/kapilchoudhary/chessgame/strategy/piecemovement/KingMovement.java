@@ -17,7 +17,7 @@ import java.util.List;
 
 public class KingMovement implements PieceMovementStrategy {
     @Override
-    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Move lastMove, @NonNull final Board board) {
+    public List<Move> getLegalMoves(@NonNull final BoardCell sourceCell, final Move lastMove, @NonNull final Board board) {
 //        Board board = Board.getBoardInstance();
         List<Move> legalMoves = new ArrayList<>();
 
@@ -44,8 +44,7 @@ public class KingMovement implements PieceMovementStrategy {
             }
 
             // 2) Castling moves (king-side and queen-side)
-            // TODO: add the moves into this
-            getCastlingMoves(sourceCell, lastMove);
+            legalMoves.addAll(getCastlingMoves(sourceCell, lastMove));
         }
 
         return legalMoves;
