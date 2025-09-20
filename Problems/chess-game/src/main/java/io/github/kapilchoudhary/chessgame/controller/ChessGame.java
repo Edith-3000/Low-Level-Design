@@ -4,9 +4,7 @@ import io.github.kapilchoudhary.chessgame.enums.PieceType;
 import io.github.kapilchoudhary.chessgame.model.Board;
 import io.github.kapilchoudhary.chessgame.model.BoardCell;
 import io.github.kapilchoudhary.chessgame.model.move.CastlingMove;
-import io.github.kapilchoudhary.chessgame.model.move.EnPassantMove;
 import io.github.kapilchoudhary.chessgame.model.move.Move;
-import io.github.kapilchoudhary.chessgame.model.piece.Piece;
 import io.github.kapilchoudhary.chessgame.model.player.Player;
 import lombok.Getter;
 import lombok.NonNull;
@@ -17,22 +15,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class ChessGame {
-    private final List<Move> moves;
+    private final List<Move> gameMoves;
     private boolean running;
     @Getter @Setter private Player playerA;
     @Getter @Setter private Player playerB;
     private Player currentPlayer;
     @Setter private Board board;
     private Player winner;
+    private boolean isDraw;
 
     public ChessGame() {
-        this.moves = new ArrayList<>();
+        this.gameMoves = new ArrayList<>();
         this.running = true;
         this.winner = null;
+        this.isDraw = false;
     }
 
     public List<Move> getMoves() {
-        return Collections.unmodifiableList(moves);
+        return Collections.unmodifiableList(gameMoves);
     }
 
     public void start() {
@@ -43,9 +43,11 @@ public class ChessGame {
         }
 
         while (running) {
+            board.displayBoard();
+
             Move lastMove = null;
-            if (!moves.isEmpty()) {
-                lastMove = moves.get(moves.size() - 1);
+            if (!gameMoves.isEmpty()) {
+                lastMove = gameMoves.get(gameMoves.size() - 1);
             }
 
             BoardCell kingCell = board.getKingCell(currentPlayer.getPieceType());
@@ -55,9 +57,9 @@ public class ChessGame {
                 List<Move> kingLegalMoves = kingCell.getPiece().getPieceMovementStrategy().getLegalMoves(kingCell, lastMove, board);
                 List<Move> validKingLegalMoves = new ArrayList<>();
 
-                // Since King cannot capture when in check
+                // Since Castling not allowed when King in check
                 for (Move move: kingLegalMoves) {
-                    if ((move.getTargetCell().getPiece() == null) && !(move instanceof CastlingMove)) {
+                    if (!(move instanceof CastlingMove)) {
                         validKingLegalMoves.add(move);
                     }
                 }
@@ -77,21 +79,27 @@ public class ChessGame {
                         System.out.println("Invalid move, try again!");
                         continue;
                     } else {
-                        applyMove(currentMove);
+                        board.applyMove(currentMove, currentPlayer);
+                        gameMoves.add(currentMove);
                     }
 
                     changePlayerTurn();
                 }
-            }
+            } else {
+                Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
 
-            Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
+                // No move left with current player, STALEMATE condition i.e. currentPlayer's King not in check and currentPlayer has 0 legal moves
+                if (currentMove == null) {
+                    isDraw = true;
+                    end();
+                } else if (!isValidMove(currentMove, lastMove)) {
+                    System.out.println("Invalid move, try again!");
+                } else {
+                    board.applyMove(currentMove, currentPlayer);
+                    gameMoves.add(currentMove);
+                }
 
-            if (currentMove == null) {
-                // TODO: what to do?
-            }
-
-            if (isValidMove(currentMove, lastMove)) {
-
+                changePlayerTurn();
             }
         }
     }
@@ -115,46 +123,11 @@ public class ChessGame {
 
     private void end() {
         running = false;
-        System.out.println("Player: " + winner.getId() + " won!");
-    }
 
-    private void applyMove(@NonNull final Move move) {
-        if (move instanceof CastlingMove) {
-            BoardCell rookFrom = ((CastlingMove) move).getRookFrom();
-            BoardCell rookTo = ((CastlingMove) move).getRookFrom();
-            BoardCell kingFrom = move.getSourceCell();
-            BoardCell kingTo = move.getTargetCell();
-
-            rookFrom.getPiece().setHasMoved(true);
-            kingFrom.getPiece().setHasMoved(true);
-
-            rookTo.setPiece(rookFrom.getPiece());
-            rookFrom.setPiece(null);
-
-            kingTo.setPiece(kingFrom.getPiece());
-            kingFrom.setPiece(null);
-        } else if (move instanceof EnPassantMove) {
-            BoardCell toBeCapturedPawnCell = ((EnPassantMove) move).getCapturedPawnCell();
-
-            BoardCell sourceCell = move.getSourceCell();
-            BoardCell targetCell = move.getTargetCell();
-
-            sourceCell.getPiece().setHasMoved(true); // Don't really need it by the way
-            targetCell.setPiece(sourceCell.getPiece());
-            sourceCell.setPiece(null);
-
-            currentPlayer.addCapturedPiece(toBeCapturedPawnCell.getPiece());
-            toBeCapturedPawnCell.getPiece().capture();
-            toBeCapturedPawnCell.setPiece(null);
+        if (isDraw) {
+            System.out.println("It's a DRAW!");
         } else {
-            BoardCell sourceCell = move.getSourceCell();
-            BoardCell targetCell = move.getTargetCell();
-
-            sourceCell.getPiece().setHasMoved(true);
-            currentPlayer.addCapturedPiece(targetCell.getPiece());
-            targetCell.getPiece().capture();
-            targetCell.setPiece(sourceCell.getPiece());
-            sourceCell.setPiece(null);
+            System.out.println("Player: " + winner.getId() + " won!");
         }
     }
 

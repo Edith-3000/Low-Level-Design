@@ -3,8 +3,11 @@ package io.github.kapilchoudhary.chessgame.model;
 import io.github.kapilchoudhary.chessgame.constants.AppConstants;
 import io.github.kapilchoudhary.chessgame.enums.CellType;
 import io.github.kapilchoudhary.chessgame.enums.PieceType;
+import io.github.kapilchoudhary.chessgame.model.move.CastlingMove;
+import io.github.kapilchoudhary.chessgame.model.move.EnPassantMove;
 import io.github.kapilchoudhary.chessgame.model.move.Move;
 import io.github.kapilchoudhary.chessgame.model.piece.*;
+import io.github.kapilchoudhary.chessgame.model.player.Player;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -185,5 +188,49 @@ public class Board {
         }
 
         return null; // Should not ever happen
+    }
+
+    public void applyMove(@NonNull final Move move, @NonNull final Player currentPlayer) {
+        if (move instanceof CastlingMove) {
+            BoardCell rookFrom = ((CastlingMove) move).getRookFrom();
+            BoardCell rookTo = ((CastlingMove) move).getRookTo();
+            BoardCell kingFrom = move.getSourceCell();
+            BoardCell kingTo = move.getTargetCell();
+
+            rookFrom.getPiece().setHasMoved(true);
+            kingFrom.getPiece().setHasMoved(true);
+
+            rookTo.setPiece(rookFrom.getPiece());
+            rookFrom.setPiece(null);
+
+            kingTo.setPiece(kingFrom.getPiece());
+            kingFrom.setPiece(null);
+        } else if (move instanceof EnPassantMove) {
+            BoardCell toBeCapturedPawnCell = ((EnPassantMove) move).getCapturedPawnCell();
+
+            BoardCell sourceCell = move.getSourceCell();
+            BoardCell targetCell = move.getTargetCell();
+
+            sourceCell.getPiece().setHasMoved(true); // Don't really need it by the way
+            targetCell.setPiece(sourceCell.getPiece());
+            sourceCell.setPiece(null);
+
+            currentPlayer.addCapturedPiece(toBeCapturedPawnCell.getPiece());
+            toBeCapturedPawnCell.getPiece().capture();
+            toBeCapturedPawnCell.setPiece(null);
+        } else {
+            BoardCell sourceCell = move.getSourceCell();
+            BoardCell targetCell = move.getTargetCell();
+
+            sourceCell.getPiece().setHasMoved(true);
+            currentPlayer.addCapturedPiece(targetCell.getPiece());
+            targetCell.getPiece().capture();
+            targetCell.setPiece(sourceCell.getPiece());
+            sourceCell.setPiece(null);
+        }
+    }
+
+    public void displayBoard() {
+
     }
 }
