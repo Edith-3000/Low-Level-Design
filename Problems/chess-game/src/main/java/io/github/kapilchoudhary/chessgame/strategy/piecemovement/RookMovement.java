@@ -16,7 +16,7 @@ public class RookMovement implements PieceMovementStrategy {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece rook = sourceCell.getPiece();
-        if (rook == null) {
+        if ((rook == null) || lastMove == null) {
             return legalMoves;
         }
 

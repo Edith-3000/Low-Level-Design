@@ -16,7 +16,7 @@ public class BishopMovement implements PieceMovementStrategy {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece bishop = sourceCell.getPiece();
-        if (bishop == null) {
+        if ((bishop == null) || (lastMove == null)) {
             return legalMoves;
         }
 

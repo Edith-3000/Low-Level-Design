@@ -24,7 +24,9 @@ public class Player {
         this.capturedPieces = new ArrayList<>();
     }
 
-    public void addCapturedPiece(@NonNull final Piece piece) {
-        capturedPieces.add(piece);
+    public void addCapturedPiece(final Piece piece) {
+        if (piece != null) {
+            capturedPieces.add(piece);
+        }
     }
 }

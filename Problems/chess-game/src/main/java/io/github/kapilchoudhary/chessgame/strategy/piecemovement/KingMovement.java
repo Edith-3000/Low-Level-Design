@@ -22,7 +22,7 @@ public class KingMovement implements PieceMovementStrategy {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece king = sourceCell.getPiece();
-        if (king == null) {
+        if ((king == null) || (lastMove == null)) {
             return legalMoves;
         }
 
@@ -37,15 +37,18 @@ public class KingMovement implements PieceMovementStrategy {
             }
 
             if ((targetCell.getPiece() == null) || king.isOpponent(targetCell.getPiece())) {
-                // simulate move: king moves to target -> cannot be in check
+                // Simulate move: king moves to target -> cannot be in check
                 if (!wouldLeaveKingInCheck(sourceCell, targetCell, lastMove)) {
                     legalMoves.add(new Move(sourceCell, targetCell));
                 }
             }
 
-            // 2) Castling moves (king-side and queen-side)
-            legalMoves.addAll(getCastlingMoves(sourceCell, lastMove));
+            // Castling moves (king-side and queen-side)
+//            legalMoves.addAll(getCastlingMoves(sourceCell, lastMove));
         }
+
+        // Castling moves (king-side and queen-side)
+        legalMoves.addAll(getCastlingMoves(sourceCell, lastMove));
 
         return legalMoves;
     }

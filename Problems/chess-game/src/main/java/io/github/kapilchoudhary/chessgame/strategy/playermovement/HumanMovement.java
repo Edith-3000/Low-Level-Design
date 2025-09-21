@@ -19,7 +19,7 @@ public class HumanMovement implements PlayerMovementStrategy {
 
     @Override
     public Move makeMove(@NonNull final Board board, @NonNull final PieceType pieceType, final Move lastMove) {
-        System.out.println("Type move in the format (source target) and hit enter: a5 d7");
+        System.out.println("Type move in the format (source target) and hit enter: (for example a5 d7)  ");
 
         String input = scanner.nextLine().trim();
 

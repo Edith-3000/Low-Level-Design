@@ -16,7 +16,7 @@ public class QueenMovement implements PieceMovementStrategy {
         List<Move> legalMoves = new ArrayList<>();
 
         Piece queen = sourceCell.getPiece();
-        if (queen == null) {
+        if ((queen == null) || (lastMove == null)) {
             return legalMoves;
         }
 

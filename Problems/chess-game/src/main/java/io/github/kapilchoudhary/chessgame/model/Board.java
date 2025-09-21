@@ -279,8 +279,12 @@ public class Board {
             BoardCell targetCell = move.getTargetCell();
 
             sourceCell.getPiece().setHasMoved(true);
-            currentPlayer.addCapturedPiece(targetCell.getPiece());
-            targetCell.getPiece().capture();
+
+            if (targetCell.getPiece() != null) {
+                currentPlayer.addCapturedPiece(targetCell.getPiece());
+                targetCell.getPiece().capture();
+            }
+
             targetCell.setPiece(sourceCell.getPiece());
             sourceCell.setPiece(null);
         }
