@@ -21,9 +21,25 @@ public class RookMovement implements PieceMovementStrategy {
         }
 
         for (Direction direction: Direction.getRookDirections()) {
-            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves);
+            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves, lastMove);
         }
 
         return legalMoves;
+    }
+
+    @Override
+    public List<BoardCell> getAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Board board) {
+        List<BoardCell> attackCells = new ArrayList<>();
+
+        Piece rook = sourceCell.getPiece();
+        if (rook == null) {
+            return attackCells;
+        }
+
+        for (Direction direction: Direction.getRookDirections()) {
+            SlidingMovementHelper.addSlidingAttackCells(sourceCell, direction, attackCells);
+        }
+
+        return attackCells;
     }
 }

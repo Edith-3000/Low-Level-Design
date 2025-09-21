@@ -91,7 +91,7 @@ public class Board {
         return boardCells[row][col];
     }
 
-    public boolean isCellUnderAttack(@NonNull final BoardCell boardCell, final Move lastMove) {
+    public boolean isCellUnderAttack(@NonNull final BoardCell boardCell) {
         Piece piece = boardCell.getPiece();
         if (piece == null) {
             return false;
@@ -109,10 +109,11 @@ public class Board {
                     continue;
                 }
 
-                List<Move> legalMoves = piece.getPieceMovementStrategy().getLegalMoves(boardCells[i][j], lastMove, boardInstance);
+//                List<Move> legalMoves = piece.getPieceMovementStrategy().getLegalMoves(boardCells[i][j], lastMove, this);
+                List<BoardCell> attackCells = piece.getPieceMovementStrategy().getAttackCells(boardCells[i][j], this);
 
-                for (Move move: legalMoves) {
-                    if (move.getTargetCell() == boardCell) {
+                for (BoardCell cell: attackCells) {
+                    if (cell == boardCell) {
                         return true;
                     }
                 }
@@ -120,6 +121,26 @@ public class Board {
         }
 
         return false;
+    }
+
+    public boolean wouldLeaveKingInCheck(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell) {
+        Board board = Board.getBoardInstance();
+
+        BoardCell kingCell = getKingCell(sourceCell.getPiece().getPieceType());
+//        Piece king = kingCell.getPiece();
+        Piece capturedPiece = targetCell.getPiece();
+
+        // Do the change
+        targetCell.setPiece(sourceCell.getPiece());
+        sourceCell.setPiece(null);
+
+        boolean inCheck = board.isCellUnderAttack(kingCell);
+
+        // Undo the change
+        sourceCell.setPiece(targetCell.getPiece());
+        targetCell.setPiece(capturedPiece);
+
+        return inCheck;
     }
 
     private void embedBoardCells() {

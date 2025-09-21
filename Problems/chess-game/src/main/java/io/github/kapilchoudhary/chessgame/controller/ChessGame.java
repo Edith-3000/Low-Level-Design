@@ -2,12 +2,9 @@ package io.github.kapilchoudhary.chessgame.controller;
 
 import io.github.kapilchoudhary.chessgame.enums.PieceType;
 import io.github.kapilchoudhary.chessgame.model.Board;
-import io.github.kapilchoudhary.chessgame.model.BoardCell;
-import io.github.kapilchoudhary.chessgame.model.move.CastlingMove;
 import io.github.kapilchoudhary.chessgame.model.move.Move;
 import io.github.kapilchoudhary.chessgame.model.player.Player;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -46,7 +43,7 @@ public class ChessGame {
             List<Move> legalMoves = board.getAllLegalMoves(currentPlayer.getPieceType(), lastMove);
 
             if (legalMoves.isEmpty()) {
-                if (board.isCellUnderAttack(board.getKingCell(currentPlayer.getPieceType()), lastMove)) {
+                if (board.isCellUnderAttack(board.getKingCell(currentPlayer.getPieceType()))) {
                     // Checkmate
                     winner = currentPlayer == playerA ? playerB : playerA;
                 } else {

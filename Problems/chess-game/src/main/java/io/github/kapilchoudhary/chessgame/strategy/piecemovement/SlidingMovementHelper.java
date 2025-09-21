@@ -10,7 +10,7 @@ import lombok.NonNull;
 import java.util.List;
 
 public final class SlidingMovementHelper {
-    public static void addSlidingLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, @NonNull final List<Move> legalMoves) {
+    public static void addSlidingLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, @NonNull final List<Move> legalMoves, final Move lastMove) {
         Board board = Board.getBoardInstance();
         Piece piece = sourceCell.getPiece();
 
@@ -18,13 +18,20 @@ public final class SlidingMovementHelper {
             return;
         }
 
-        int nr = sourceCell.getRow() + direction.getDeltaRow();
-        int nc = sourceCell.getCol() + direction.getDeltaCol();
+        int nr = sourceCell.getRow();
+        int nc = sourceCell.getCol();
 
-        while (!board.outOfBoundary(nr, nc)) {
+        while (true) {
+            nr += direction.getDeltaRow();
+            nc += direction.getDeltaCol();
+
             BoardCell targetCell = board.getBoardCell(nr, nc);
 
             if (targetCell == null) {
+                break;
+            }
+
+            if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
                 break;
             }
 
@@ -38,9 +45,37 @@ public final class SlidingMovementHelper {
 
                 break;
             }
+        }
+    }
 
+    public static void addSlidingAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, @NonNull final List<BoardCell> attackCells) {
+        Board board = Board.getBoardInstance();
+        Piece piece = sourceCell.getPiece();
+
+        if (piece == null) {
+            return;
+        }
+
+        int nr = sourceCell.getRow();
+        int nc = sourceCell.getCol();
+
+        while (true) {
             nr += direction.getDeltaRow();
             nc += direction.getDeltaCol();
+
+            BoardCell targetCell = board.getBoardCell(nr, nc);
+
+            if (targetCell == null) {
+                break;
+            }
+
+            // Add the cell regardless of whether it is empty, opponent, or friendly
+            attackCells.add(targetCell);
+
+            // Stop sliding further if any piece blocks
+            if (targetCell.getPiece() != null) {
+                break;
+            }
         }
     }
 }

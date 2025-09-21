@@ -21,9 +21,25 @@ public class BishopMovement implements PieceMovementStrategy {
         }
 
         for (Direction direction: Direction.getBishopDirections()) {
-            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves);
+            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves, lastMove);
         }
 
         return legalMoves;
+    }
+
+    @Override
+    public List<BoardCell> getAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Board board) {
+        List<BoardCell> attackCells = new ArrayList<>();
+
+        Piece bishop = sourceCell.getPiece();
+        if (bishop == null) {
+            return attackCells;
+        }
+
+        for (Direction direction: Direction.getBishopDirections()) {
+            SlidingMovementHelper.addSlidingAttackCells(sourceCell, direction, attackCells);
+        }
+
+        return attackCells;
     }
 }

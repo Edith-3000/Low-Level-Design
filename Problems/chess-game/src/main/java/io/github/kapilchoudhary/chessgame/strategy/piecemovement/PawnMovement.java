@@ -30,6 +30,35 @@ public class PawnMovement implements PieceMovementStrategy {
         return legalMoves;
     }
 
+    @Override
+    public List<BoardCell> getAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Board board) {
+        List<BoardCell> attackCells = new ArrayList<>();
+
+        Piece pawn = sourceCell.getPiece();
+        if (pawn == null) {
+            return attackCells;
+        }
+
+        for (Direction direction: Direction.getPawnDirections(pawn.getPieceType())) {
+            if ((direction == Direction.N) || (direction == Direction.S)) {
+                continue;
+            }
+
+            int nr = sourceCell.getRow() + direction.getDeltaRow();
+            int nc = sourceCell.getCol() + direction.getDeltaCol();
+
+            BoardCell targetCell = board.getBoardCell(nr, nc);
+
+            if (targetCell == null) {
+                continue;
+            }
+
+            attackCells.add(targetCell);
+        }
+
+        return attackCells;
+    }
+
     private List<Move> getStraightLegalMoves(@NonNull final BoardCell sourceCell, @NonNull final Direction direction, @NonNull final Board board) {
 //        Board board = Board.getBoardInstance();
         List<Move> legalMoves = new ArrayList<>();
@@ -48,7 +77,7 @@ public class PawnMovement implements PieceMovementStrategy {
 
         BoardCell targetCell = board.getBoardCell(nr, nc);
 
-        if ((targetCell == null) || (targetCell.getPiece() != null)) {
+        if ((targetCell == null) || (targetCell.getPiece() != null) || board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
             return legalMoves;
         }
 
@@ -60,7 +89,7 @@ public class PawnMovement implements PieceMovementStrategy {
 
             BoardCell twoStepTargetCell = board.getBoardCell(nr, nc);
 
-            if ((twoStepTargetCell == null) || (twoStepTargetCell.getPiece() != null)) {
+            if ((twoStepTargetCell == null) || (twoStepTargetCell.getPiece() != null) || board.wouldLeaveKingInCheck(sourceCell, twoStepTargetCell)) {
                 return legalMoves;
             }
 
@@ -93,14 +122,22 @@ public class PawnMovement implements PieceMovementStrategy {
         }
 
         if (targetCell.getPiece() != null) {
-            if (pawn.isOpponent(targetCell.getPiece())) {
+            if (pawn.isOpponent(targetCell.getPiece()) && !board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
                 legalMoves.add(new Move(sourceCell, targetCell));
             }
         } else {
             BoardCell enPassantCapturedCell = getEnPassantCapturedCell(sourceCell, lastMove);
             if (enPassantCapturedCell != null) {
                 Move enPassantMove = new EnPassantMove(sourceCell, targetCell, enPassantCapturedCell);
-                legalMoves.add(enPassantMove);
+
+                Piece enPassantCapturedPiece = enPassantCapturedCell.getPiece();
+                enPassantCapturedCell.setPiece(null);
+
+                if (!board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
+                    legalMoves.add(enPassantMove);
+                }
+
+                enPassantCapturedCell.setPiece(enPassantCapturedPiece);
             }
         }
 

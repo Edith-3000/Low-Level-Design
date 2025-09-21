@@ -31,11 +31,31 @@ public class KnightMovement implements PieceMovementStrategy {
                 continue;
             }
 
+            if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
+                continue;
+            }
+
             if ((targetCell.getPiece() == null) || knight.isOpponent(targetCell.getPiece())) {
                 legalMoves.add(new Move(sourceCell, targetCell));
             }
         }
 
         return legalMoves;
+    }
+
+    @Override
+    public List<BoardCell> getAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Board board) {
+        List<BoardCell> attackCells = new ArrayList<>();
+
+        Piece knight = sourceCell.getPiece();
+        if (knight == null) {
+            return attackCells;
+        }
+
+        for (Direction direction: Direction.getKnightDirections()) {
+            SlidingMovementHelper.addSlidingAttackCells(sourceCell, direction, attackCells);
+        }
+
+        return attackCells;
     }
 }

@@ -21,9 +21,25 @@ public class QueenMovement implements PieceMovementStrategy {
         }
 
         for (Direction direction: Direction.getQueenDirections()) {
-            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves);
+            SlidingMovementHelper.addSlidingLegalMoves(sourceCell, direction, legalMoves, lastMove);
         }
 
         return legalMoves;
+    }
+
+    @Override
+    public List<BoardCell> getAttackCells(@NonNull final BoardCell sourceCell, @NonNull final Board board) {
+        List<BoardCell> attackCells = new ArrayList<>();
+
+        Piece queen = sourceCell.getPiece();
+        if (queen == null) {
+            return attackCells;
+        }
+
+        for (Direction direction: Direction.getQueenDirections()) {
+            SlidingMovementHelper.addSlidingAttackCells(sourceCell, direction, attackCells);
+        }
+
+        return attackCells;
     }
 }
