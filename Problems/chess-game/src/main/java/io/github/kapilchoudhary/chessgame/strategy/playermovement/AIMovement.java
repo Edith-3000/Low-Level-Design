@@ -22,6 +22,14 @@ public class AIMovement implements PlayerMovementStrategy {
             return null;
         }
 
-        return allLegalMoves.get(random.nextInt(allLegalMoves.size()));
+        Move move = allLegalMoves.get(random.nextInt(allLegalMoves.size()));
+
+        System.out.println(
+                "[" + this.getClass().getSimpleName() + " Strategy] move in the format (source target) is: (for example a5 d7) "
+                        + board.colToFile(move.getSourceCell().getCol()) + board.rowToRank(move.getSourceCell().getRow()) + " " +
+                        board.colToFile(move.getTargetCell().getCol()) + board.rowToRank(move.getTargetCell().getRow())
+                );
+
+        return move;
     }
 }

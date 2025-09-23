@@ -32,11 +32,11 @@ public enum Direction {
     }
 
     public static List<Direction> getKingDirections() {
-        return List.of(values());
+        return List.of(N, S, E, W, NW, NE, SW, SE);
     }
 
     public static List<Direction> getQueenDirections() {
-        return List.of(values());
+        return List.of(N, S, E, W, NW, NE, SW, SE);
     }
 
     public static List<Direction> getBishopDirections() {

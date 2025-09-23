@@ -29,4 +29,9 @@ public class Player {
             capturedPieces.add(piece);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Player(id: " + id + ", name: " + name + ", piece: " + pieceType + ", movement_strategy: " + playerMovementStrategy.getClass().getSimpleName() + ")";
+    }
 }

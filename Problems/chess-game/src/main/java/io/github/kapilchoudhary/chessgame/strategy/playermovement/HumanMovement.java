@@ -19,7 +19,7 @@ public class HumanMovement implements PlayerMovementStrategy {
 
     @Override
     public Move makeMove(@NonNull final Board board, @NonNull final PieceType pieceType, final Move lastMove) {
-        System.out.println("Type move in the format (source target) and hit enter: (for example a5 d7)  ");
+        System.out.print("[" + this.getClass().getSimpleName() + " Strategy] type move in the format (source target) and hit enter: (for example a5 d7) ");
 
         String input = scanner.nextLine().trim();
 
@@ -37,11 +37,11 @@ public class HumanMovement implements PlayerMovementStrategy {
         char targetMoveFile = splitInput[1].charAt(0);
         char targetMoveRank = splitInput[1].charAt(1);
 
-        int srcMoveRow = rankToRow(srcMoveRank);
-        int srcMoveCol = fileToCol(srcMoveFile);
+        int srcMoveRow = board.rankToRow(srcMoveRank);
+        int srcMoveCol = board.fileToCol(srcMoveFile);
 
-        int targetMoveRow = rankToRow(targetMoveRank);
-        int targetMoveCol = fileToCol(targetMoveFile);
+        int targetMoveRow = board.rankToRow(targetMoveRank);
+        int targetMoveCol = board.fileToCol(targetMoveFile);
 
         BoardCell srcMoveCell = board.getBoardCell(srcMoveRow, srcMoveCol);
         BoardCell targetMoveCell = board.getBoardCell(targetMoveRow, targetMoveCol);
@@ -49,13 +49,5 @@ public class HumanMovement implements PlayerMovementStrategy {
         Move move = new Move(srcMoveCell, targetMoveCell);
 
         return move;
-    }
-
-    private int fileToCol(char file) {
-        return file - 'a';
-    }
-
-    private int rankToRow(char rank) {
-        return AppConstants.STANDARD_CHESS_ROWS - Character.getNumericValue(rank);
     }
 }

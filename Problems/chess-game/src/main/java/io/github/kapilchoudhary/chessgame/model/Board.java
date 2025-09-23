@@ -400,4 +400,20 @@ public class Board {
         if (symbols == null) return "?";
         return piece.getPieceType() == PieceType.WHITE ? symbols[0] : symbols[1];
     }
+
+    public int fileToCol(char file) {
+        return file - 'a';
+    }
+
+    public int rankToRow(char rank) {
+        return AppConstants.STANDARD_CHESS_ROWS - Character.getNumericValue(rank);
+    }
+
+    public char colToFile(int col) {
+        return (char) (col + 'a');
+    }
+
+    public int rowToRank(int row) {
+        return AppConstants.STANDARD_CHESS_ROWS - row;
+    }
 }
