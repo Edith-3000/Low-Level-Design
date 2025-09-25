@@ -40,6 +40,8 @@ public class KingMovement implements PieceMovementStrategy {
                 // Simulate move: king moves to target -> cannot be in check
                 if (!board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
                     legalMoves.add(new Move(sourceCell, targetCell));
+                } else {
+
                 }
             }
 

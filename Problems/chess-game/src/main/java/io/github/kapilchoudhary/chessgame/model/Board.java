@@ -416,4 +416,19 @@ public class Board {
     public int rowToRank(int row) {
         return AppConstants.STANDARD_CHESS_ROWS - row;
     }
+
+    public void displayMoves(List<Move> moves) {
+        if (moves.isEmpty()) {
+            System.out.println("No moves to display");
+            return;
+        }
+
+        System.out.print("[");
+        for (Move move: moves) {
+            System.out.print("(" + colToFile(move.getSourceCell().getCol()) + rowToRank(move.getSourceCell().getRow()) +
+                    " " + colToFile(move.getTargetCell().getCol()) + rowToRank(move.getTargetCell().getRow()) + ")");
+        }
+
+        System.out.println("]");
+    }
 }

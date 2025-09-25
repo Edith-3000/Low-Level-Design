@@ -56,6 +56,8 @@ public class ChessGame {
 
             System.out.println("**********************************************************************************************************************");
             System.out.println("Current Player: " + currentPlayer);
+            System.out.print("Valid moves for current player: ");
+            board.displayMoves(legalMoves);
             Move currentMove = currentPlayer.getPlayerMovementStrategy().makeMove(board, currentPlayer.getPieceType(), lastMove);
 
             if (!legalMoves.contains(currentMove)) {
