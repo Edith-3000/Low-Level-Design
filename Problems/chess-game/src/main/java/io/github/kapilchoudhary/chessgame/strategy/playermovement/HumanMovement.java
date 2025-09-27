@@ -13,8 +13,8 @@ public class HumanMovement implements PlayerMovementStrategy {
 //    private final int expectedInputLength = 5;
     private final Scanner scanner;
 
-    public HumanMovement(Scanner scanner) {
-        this.scanner = scanner;
+    public HumanMovement() {
+        this.scanner = new Scanner(System.in);;
     }
 
     @Override
@@ -36,6 +36,12 @@ public class HumanMovement implements PlayerMovementStrategy {
 
         char targetMoveFile = splitInput[1].charAt(0);
         char targetMoveRank = splitInput[1].charAt(1);
+
+//        if (!board.isValidFile(srcMoveFile) || !(board.isValidRank(srcMoveRank)) ||
+//                !board.isValidFile(targetMoveFile) || !(board.isValidRank(targetMoveRank))
+//        ) {
+//            throw new IllegalArgumentException("Invalid move, try again!");
+//        }
 
         int srcMoveRow = board.rankToRow(srcMoveRank);
         int srcMoveCol = board.fileToCol(srcMoveFile);

@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NonNull;
 
 public class EnPassantMove extends Move {
-    @Getter private final BoardCell capturedPawnCell;
+    @Getter private final BoardCell opponentPawnCell;
 
     public EnPassantMove(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell, @NonNull final BoardCell opponentPawnCell) {
         super(sourceCell, targetCell);
-        this.capturedPawnCell = opponentPawnCell;
+        this.opponentPawnCell = opponentPawnCell;
     }
 }

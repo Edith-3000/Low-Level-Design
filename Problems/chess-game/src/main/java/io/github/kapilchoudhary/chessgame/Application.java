@@ -12,9 +12,9 @@ import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
 
-        PlayerMovementStrategy humanPlayerMovementStrategy = new HumanMovement(scanner);
+        PlayerMovementStrategy humanPlayerMovementStrategy = new HumanMovement();
         PlayerMovementStrategy aiPlayerMovementStrategy = new AIMovement();
 
         Player playerA = new Player("1-trump", "TRUMP", PieceType.WHITE);

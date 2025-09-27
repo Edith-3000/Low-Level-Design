@@ -13,8 +13,13 @@ public class Move {
         this.targetCell = targetCell;
     }
 
+    /**
+     * @param o   the reference object with which to compare.
+     * @return boolean
+     */
     // This had to be done, otherwise the move made by player using `currentPlayer.getPlayerMovementStrategy().makeMove`
-    // will never be equated with any move returned by `board.getAllLegalMoves()`, even though it is a valid legal move
+    // will never be equated with any move returned by `board.getAllLegalMoves()`, even though it is a valid legal move.
+    // We do not want to compare 2 moves just on the basis of their references.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

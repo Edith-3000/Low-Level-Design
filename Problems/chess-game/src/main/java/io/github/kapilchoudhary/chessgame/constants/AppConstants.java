@@ -26,4 +26,5 @@ public final class AppConstants {
     public static final int ROW_SEVEN = 7;
 
     public static final int STANDARD_CHESS_ROWS = 8;
+    public static final int STANDARD_CHESS_COLUMNS = 8;
 }

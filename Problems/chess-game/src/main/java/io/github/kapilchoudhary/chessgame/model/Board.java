@@ -110,7 +110,7 @@ public class Board {
                 }
 
 //                List<Move> legalMoves = piece.getPieceMovementStrategy().getLegalMoves(boardCells[i][j], lastMove, this);
-                List<BoardCell> attackCells = piece.getPieceMovementStrategy().getAttackCells(boardCells[i][j], this);
+                List<BoardCell> attackCells = currCell.getPiece().getPieceMovementStrategy().getAttackCells(currCell, this);
 
                 for (BoardCell cell: attackCells) {
                     if (cell == boardCell) {
@@ -124,7 +124,7 @@ public class Board {
     }
 
     public boolean wouldLeaveKingInCheck(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell) {
-        Board board = Board.getBoardInstance();
+//        Board board = Board.getBoardInstance();
 
         BoardCell kingCell = getKingCell(sourceCell.getPiece().getPieceType());
 //        Piece king = kingCell.getPiece();
@@ -134,7 +134,7 @@ public class Board {
         targetCell.setPiece(sourceCell.getPiece());
         sourceCell.setPiece(null);
 
-        boolean inCheck = board.isCellUnderAttack(kingCell);
+        boolean inCheck = isCellUnderAttack(kingCell);
 
         // Undo the change
         sourceCell.setPiece(targetCell.getPiece());
@@ -283,7 +283,7 @@ public class Board {
             kingTo.setPiece(kingFrom.getPiece());
             kingFrom.setPiece(null);
         } else if (move instanceof EnPassantMove) {
-            BoardCell toBeCapturedPawnCell = ((EnPassantMove) move).getCapturedPawnCell();
+            BoardCell toBeCapturedPawnCell = ((EnPassantMove) move).getOpponentPawnCell();
 
             BoardCell sourceCell = move.getSourceCell();
             BoardCell targetCell = move.getTargetCell();
@@ -415,6 +415,14 @@ public class Board {
 
     public int rowToRank(int row) {
         return AppConstants.STANDARD_CHESS_ROWS - row;
+    }
+
+    public boolean isValidFile(char file) {
+        return (file >= 'a') && (file <= 'h');
+    }
+
+    public boolean isValidRank(int rank) {
+        return (rank >= 1) && (rank <= AppConstants.STANDARD_CHESS_ROWS);
     }
 
     public void displayMoves(List<Move> moves) {

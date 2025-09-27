@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 public class CastlingMove extends Move {
     @Getter private final BoardCell rookFrom;
-    @Getter protected final BoardCell rookTo;
+    @Getter private final BoardCell rookTo;
 
     public CastlingMove(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell, @NonNull final BoardCell rookFrom, @NonNull final BoardCell rookTo) {
         super(sourceCell, targetCell);
