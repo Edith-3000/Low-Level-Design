@@ -8,8 +8,6 @@ import io.github.kapilchoudhary.chessgame.strategy.playermovement.AIMovement;
 import io.github.kapilchoudhary.chessgame.strategy.playermovement.HumanMovement;
 import io.github.kapilchoudhary.chessgame.strategy.playermovement.PlayerMovementStrategy;
 
-import java.util.Scanner;
-
 public class Application {
     public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);

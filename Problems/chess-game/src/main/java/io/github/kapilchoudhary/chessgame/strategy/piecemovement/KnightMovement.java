@@ -31,8 +31,10 @@ public class KnightMovement implements PieceMovementStrategy {
                 continue;
             }
 
-            if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
-                continue;
+            if ((targetCell.getPiece() == null) || knight.isOpponent(targetCell.getPiece())) {
+                if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
+                    continue;
+                }
             }
 
             if ((targetCell.getPiece() == null) || knight.isOpponent(targetCell.getPiece())) {

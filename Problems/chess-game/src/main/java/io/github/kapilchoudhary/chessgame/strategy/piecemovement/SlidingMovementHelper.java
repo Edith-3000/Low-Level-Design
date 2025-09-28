@@ -31,8 +31,10 @@ public final class SlidingMovementHelper {
                 break;
             }
 
-            if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
-                break;
+            if ((targetCell.getPiece() == null) || piece.isOpponent(targetCell.getPiece())) {
+                if (board.wouldLeaveKingInCheck(sourceCell, targetCell)) {
+                    break;
+                }
             }
 
             Piece targetCellPiece = targetCell.getPiece();

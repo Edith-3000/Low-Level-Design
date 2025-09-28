@@ -1,6 +1,5 @@
 package io.github.kapilchoudhary.chessgame.strategy.playermovement;
 
-import io.github.kapilchoudhary.chessgame.constants.AppConstants;
 import io.github.kapilchoudhary.chessgame.enums.PieceType;
 import io.github.kapilchoudhary.chessgame.model.Board;
 import io.github.kapilchoudhary.chessgame.model.BoardCell;
@@ -19,16 +18,23 @@ public class HumanMovement implements PlayerMovementStrategy {
 
     @Override
     public Move makeMove(@NonNull final Board board, @NonNull final PieceType pieceType, final Move lastMove) {
-        System.out.print("[" + this.getClass().getSimpleName() + " Strategy] type move in the format (source target) and hit enter: (for example a5 d7) ");
+        String[] splitInput;
 
-        String input = scanner.nextLine().trim();
+        while (true) {
+            System.out.print("[" + this.getClass().getSimpleName() + " Strategy] type move in the format (source target) and hit enter: (for example a5 d7) ");
 
-        String[] splitInput = input.split("\\s+");
+            String input = scanner.nextLine().trim();
 
-        if (splitInput.length != 2 ||
-                splitInput[0].length() != 2 ||
-                splitInput[1].length() != 2) {
-            throw new IllegalArgumentException("Invalid input format. Example: a2 a4");
+            splitInput = input.split("\\s+");
+
+            if (splitInput.length != 2 ||
+                    splitInput[0].length() != 2 ||
+                    splitInput[1].length() != 2) {
+//                throw new IllegalArgumentException("Invalid input format. Example: a2 a4");
+                System.out.println("Invalid move, try again!");
+            } else {
+                break;
+            }
         }
 
         char srcMoveFile = splitInput[0].charAt(0);

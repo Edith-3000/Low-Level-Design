@@ -126,13 +126,16 @@ public class Board {
     public boolean wouldLeaveKingInCheck(@NonNull final BoardCell sourceCell, @NonNull final BoardCell targetCell) {
 //        Board board = Board.getBoardInstance();
 
-        BoardCell kingCell = getKingCell(sourceCell.getPiece().getPieceType());
+//        BoardCell kingCell = getKingCell(sourceCell.getPiece().getPieceType());
 //        Piece king = kingCell.getPiece();
+        Piece sourceCellPiece = sourceCell.getPiece();
         Piece capturedPiece = targetCell.getPiece();
 
         // Do the change
         targetCell.setPiece(sourceCell.getPiece());
         sourceCell.setPiece(null);
+
+        BoardCell kingCell = getKingCell(sourceCellPiece.getPieceType());
 
         boolean inCheck = isCellUnderAttack(kingCell);
 
