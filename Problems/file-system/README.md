@@ -1,0 +1,1 @@
+### If you face issue like present in `resources/static/Screenshot 2025-10-04 at 9.29.38 PM.png`, add `gradle.properties` in your project.
