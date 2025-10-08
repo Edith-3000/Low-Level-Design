@@ -8,6 +8,6 @@ public class Directory extends FileSystemComponent {
     }
 
     public boolean isFile() {
-        return true;
+        return false;
     }
 }
