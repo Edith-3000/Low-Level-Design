@@ -10,4 +10,14 @@ public class Directory extends FileSystemComponent {
     public boolean isFile() {
         return false;
     }
+
+    public long getSize() {
+        long size = 0L;
+
+        for (FileSystemComponent childrenComponent: getChildren().values()) {
+            size += childrenComponent.getSize();
+        }
+
+        return size;
+    }
 }

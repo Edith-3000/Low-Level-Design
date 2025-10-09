@@ -1,13 +1,16 @@
 package io.github.kapilchoudhary.file_system.model;
 
+import lombok.Getter;
 import lombok.NonNull;
 
 public class File extends FileSystemComponent {
-    private String extension;
+    @Getter private String extension;
+    @Getter private String content;
 
-    public File(@NonNull final String name) {
+    public File(@NonNull final String name, String content) {
         super(name);
         this.extension = extractExtension(name);
+        this.content = content;
     }
 
     private String extractExtension(@NonNull final String name) {
@@ -17,5 +20,9 @@ public class File extends FileSystemComponent {
 
     public boolean isFile() {
         return true;
+    }
+
+    public long getSize() {
+        return (content == null) ? 0 : content.getBytes().length;
     }
 }

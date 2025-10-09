@@ -40,4 +40,6 @@ public abstract class FileSystemComponent {
     }
 
     public abstract boolean isFile();
+
+    public abstract long getSize();
 }
