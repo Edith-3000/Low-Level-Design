@@ -11,9 +11,17 @@ import java.util.Map;
 
 // Using composite design pattern
 public abstract class FileSystemComponent {
-    @Getter private final String name;
-    @Getter private final LocalDateTime createdAt;
-    @Getter @Setter private LocalDateTime modifiedAt;
+
+    @Getter
+    private final String name;
+
+    @Getter
+    private final LocalDateTime createdAt;
+
+    @Getter
+    @Setter
+    private LocalDateTime modifiedAt;
+
     private final Map<String, FileSystemComponent> children;
 
     public FileSystemComponent(@NonNull final String name) {
@@ -39,7 +47,13 @@ public abstract class FileSystemComponent {
         return children.get(name);
     }
 
+    public void removeChild(String name) {
+        children.remove(name);
+    }
+
     public abstract boolean isFile();
 
     public abstract long getSize();
+
+    public abstract String display(int depth);
 }

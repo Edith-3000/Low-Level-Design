@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "1275ca18-1147-4bc4-ab20-6e1283ce54e6",
+		"name": "PERSONAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21955601"
+	},
+	"item": [
+		{
+			"name": "file-system",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"path\": \"/docs/readme.txt\",\n    \"type\": \"FILE\",\n    \"content\": \"LOREM IPSUM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fs/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fs",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fs/read?path=/docs/readme.txt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fs",
+								"read"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/docs/readme.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"path\": \"/docs/readme.txt\",\n    \"content\": \"LOREM IPSUM UPDATED\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fs/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fs",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/fs/delete?path=/docs/readme.txt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fs",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/docs/readme.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "display",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/fs/display?path=/docs/readme.txt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"fs",
+								"display"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/docs/readme.txt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

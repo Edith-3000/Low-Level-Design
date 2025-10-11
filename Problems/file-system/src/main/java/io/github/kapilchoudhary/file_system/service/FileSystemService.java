@@ -2,13 +2,17 @@ package io.github.kapilchoudhary.file_system.service;
 
 import io.github.kapilchoudhary.file_system.dto.FileSystemCreateRequest;
 import io.github.kapilchoudhary.file_system.dto.FileSystemReadResponse;
+import io.github.kapilchoudhary.file_system.dto.FileSystemUpdateRequest;
 import io.github.kapilchoudhary.file_system.enums.FileSystemComponentType;
 import io.github.kapilchoudhary.file_system.exception.InvalidPathException;
+import io.github.kapilchoudhary.file_system.exception.NotAFileException;
+import io.github.kapilchoudhary.file_system.exception.RootPathDeleteException;
 import io.github.kapilchoudhary.file_system.model.Directory;
 import io.github.kapilchoudhary.file_system.model.File;
 import io.github.kapilchoudhary.file_system.model.FileSystemComponent;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class FileSystemService {
 
             FileSystemComponent childComponent = current.getChild(component);
             if (childComponent.isFile()) {
-                throw new InvalidPathException(path);
+                throw new NotAFileException(path);
             }
 
             current = childComponent;
@@ -112,6 +116,98 @@ public class FileSystemService {
                     .children(children)
                     .build();
         }
+    }
+
+    public void update(FileSystemUpdateRequest request) {
+        String path = request.getPath();
+
+        if (!isValidPath(path)) {
+            throw new InvalidPathException(path);
+        }
+
+        String[] pathComponents = path.split("/");
+        FileSystemComponent current = root;
+
+        for (int i = 0; i < pathComponents.length; i++) {
+            String component = pathComponents[i];
+
+            if (component.isEmpty()) {
+                continue;
+            }
+
+            if (!current.hasChild(component)) {
+                throw new InvalidPathException(path);
+            }
+
+            current = current.getChild(component);
+        }
+
+        if (!current.isFile()) {
+            throw new NotAFileException(path);
+        }
+
+        File file = (File) current;
+        file.setContent(request.getContent());
+        file.setModifiedAt(LocalDateTime.now());
+    }
+
+    public void delete(String path) {
+        if (!isValidPath(path)) {
+            throw new InvalidPathException(path);
+        }
+
+        if (path.equals("/")) {
+            throw new RootPathDeleteException();
+        }
+
+        String[] pathComponents = path.split("/");
+        FileSystemComponent current = root;
+
+        for (int i = 0; i < pathComponents.length - 1; i++) {
+            String component = pathComponents[i];
+
+            if (component.isEmpty()) {
+                continue;
+            }
+
+            if (!current.hasChild(component)) {
+                throw new InvalidPathException(path);
+            }
+
+            current = current.getChild(component);
+        }
+
+        String lastComponent = pathComponents[pathComponents.length - 1];
+        if (lastComponent.isEmpty()) {
+            throw new InvalidPathException(path);
+        }
+
+        current.removeChild(lastComponent);
+    }
+
+    public String display(String path) {
+        if (!isValidPath(path)) {
+            throw new InvalidPathException(path);
+        }
+
+        String[] pathComponents = path.split("/");
+        FileSystemComponent current = root;
+
+        for (int i = 0; i < pathComponents.length; i++) {
+            String component = pathComponents[i];
+
+            if (component.isEmpty()) {
+                continue;
+            }
+
+            if (!current.hasChild(component)) {
+                throw new InvalidPathException(path);
+            }
+
+            current = current.getChild(component);
+        }
+
+        return current.display(0);
     }
 
     private boolean isValidPath(String path) {

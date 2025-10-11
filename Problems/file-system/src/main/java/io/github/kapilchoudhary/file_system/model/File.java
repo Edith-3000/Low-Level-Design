@@ -2,10 +2,16 @@ package io.github.kapilchoudhary.file_system.model;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 public class File extends FileSystemComponent {
-    @Getter private String extension;
-    @Getter private String content;
+
+    @Getter
+    private String extension;
+
+    @Getter
+    @Setter
+    private String content;
 
     public File(@NonNull final String name, String content) {
         super(name);
@@ -24,5 +30,10 @@ public class File extends FileSystemComponent {
 
     public long getSize() {
         return (content == null) ? 0 : content.getBytes().length;
+    }
+
+    public String display(int depth) {
+        return " ".repeat(depth * 2) +
+                getName() + " (" + getSize() + " bytes)";
     }
 }
