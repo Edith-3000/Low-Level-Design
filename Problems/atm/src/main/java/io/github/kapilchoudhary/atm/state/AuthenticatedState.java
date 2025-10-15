@@ -5,16 +5,16 @@ import io.github.kapilchoudhary.atm.model.ATM;
 import io.github.kapilchoudhary.atm.model.Card;
 import lombok.NonNull;
 
-public class IdleState implements ATMState {
+public class AuthenticatedState implements ATMState {
 
     @Override
     public void insertCard(@NonNull final ATM atm, @NonNull final Card card) {
-        atm.setCurrentState(new CardInsertedState());
+        throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 
     @Override
     public void ejectCard(@NonNull final ATM atm) {
-        throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
+        atm.setCurrentState(new IdleState());
     }
 
     @Override
@@ -24,7 +24,7 @@ public class IdleState implements ATMState {
 
     @Override
     public void selectTransaction(@NonNull final ATM atm, @NonNull final TransactionType transactionType) {
-        throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
+        atm.setCurrentState(new TransactionState());
     }
 
     @Override

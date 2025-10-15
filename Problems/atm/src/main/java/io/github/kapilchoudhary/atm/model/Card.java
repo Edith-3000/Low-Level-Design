@@ -1,22 +1,27 @@
 package io.github.kapilchoudhary.atm.model;
 
-import lombok.Getter;
-import lombok.NonNull;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Table(name = "cards")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Card {
 
-    @Getter
-    private final String cardNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Getter
-    private final String pin;
+    @Column(nullable = false, unique = true)
+    private String cardNumber;
 
-    @Getter
-    private final String accountNumber;
+    @Column(nullable = false)
+    private boolean active;
 
-    public Card(@NonNull final String cardNumber, @NonNull String pin, @NonNull final String accountNumber) {
-        this.cardNumber = cardNumber;
-        this.pin = pin;
-        this.accountNumber = accountNumber;
-    }
+    @Column(nullable = false)
+    private String pin;
 }
