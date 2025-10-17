@@ -1,0 +1,10 @@
+package io.github.kapilchoudhary.atm.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class EnterPinRequest {
+    private String pin;
+}

@@ -10,6 +10,8 @@ public class IdleState implements ATMState {
     @Override
     public void insertCard(@NonNull final ATM atm, @NonNull final Card card) {
         atm.setCurrentState(new CardInsertedState());
+        atm.setInsertedCard(card);
+        System.out.println("Card inserted: " + card.getCardNumber());
     }
 
     @Override
@@ -18,7 +20,7 @@ public class IdleState implements ATMState {
     }
 
     @Override
-    public void enterPin(@NonNull final ATM atm, @NonNull final String pin) {
+    public void enterPin(@NonNull final ATM atm) {
         throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 

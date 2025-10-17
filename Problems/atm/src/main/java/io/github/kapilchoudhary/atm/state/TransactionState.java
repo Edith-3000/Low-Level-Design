@@ -14,11 +14,12 @@ public class TransactionState implements ATMState {
 
     @Override
     public void ejectCard(@NonNull final ATM atm) {
+        atm.setInsertedCard(null);
         atm.setCurrentState(new IdleState());
     }
 
     @Override
-    public void enterPin(@NonNull final ATM atm, @NonNull final String pin) {
+    public void enterPin(@NonNull final ATM atm) {
         throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 
@@ -27,8 +28,10 @@ public class TransactionState implements ATMState {
         switch (transactionType) {
             case BALANCE_CHECK:
                 atm.setCurrentState(new BalanceCheckState());
+                break;
             case WITHDRAWAL:
                 atm.setCurrentState(new WithdrawCashState());
+                break;
             default:
                 throw new UnsupportedOperationException("Transaction Type: " + transactionType + " not supported yet.");
         }

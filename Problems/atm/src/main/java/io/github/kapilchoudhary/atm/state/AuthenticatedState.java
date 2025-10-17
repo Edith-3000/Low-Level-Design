@@ -14,17 +14,19 @@ public class AuthenticatedState implements ATMState {
 
     @Override
     public void ejectCard(@NonNull final ATM atm) {
+        atm.setInsertedCard(null);
         atm.setCurrentState(new IdleState());
     }
 
     @Override
-    public void enterPin(@NonNull final ATM atm, @NonNull final String pin) {
+    public void enterPin(@NonNull final ATM atm) {
         throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 
     @Override
     public void selectTransaction(@NonNull final ATM atm, @NonNull final TransactionType transactionType) {
         atm.setCurrentState(new TransactionState());
+        atm.getCurrentState().selectTransaction(atm, transactionType);
     }
 
     @Override

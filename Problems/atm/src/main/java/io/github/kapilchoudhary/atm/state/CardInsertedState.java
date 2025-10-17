@@ -14,11 +14,12 @@ public class CardInsertedState implements ATMState {
 
     @Override
     public void ejectCard(@NonNull final ATM atm) {
+        atm.setInsertedCard(null);
         atm.setCurrentState(new IdleState());
     }
 
     @Override
-    public void enterPin(@NonNull final ATM atm, @NonNull final String pin) {
+    public void enterPin(@NonNull final ATM atm) {
         atm.setCurrentState(new AuthenticatedState());
     }
 

@@ -9,7 +9,7 @@ public interface ATMState {
 
     void insertCard(@NonNull final ATM atm, @NonNull final Card card);
     void ejectCard(@NonNull final ATM atm);
-    void enterPin(@NonNull final ATM atm, @NonNull final String pin);
+    void enterPin(@NonNull final ATM atm);
 
     void selectTransaction(@NonNull final ATM atm, @NonNull final TransactionType transactionType);
     void checkBalance(@NonNull final ATM atm);
