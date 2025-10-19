@@ -6,5 +6,5 @@ INSERT INTO cash_inventory (denomination, count) VALUES (500, 15);
 INSERT INTO cash_inventory (denomination, count) VALUES (2000, 25);
 
 
-INSERT INTO cards (card_number, pin, active) VALUES ('1234-5678-9012-3456', '1234', true);
-INSERT INTO cards (card_number, pin, active) VALUES ('1111-2222-3333-4444', '1111', true);
+INSERT INTO cards (card_number, pin, active, balance) VALUES ('1234-5678-9012-3456', '1234', true, 25000);
+INSERT INTO cards (card_number, pin, active, balance) VALUES ('1111-2222-3333-4444', '1111', true, 10000);

@@ -3,6 +3,9 @@ package io.github.kapilchoudhary.atm.state;
 import io.github.kapilchoudhary.atm.enums.TransactionType;
 import io.github.kapilchoudhary.atm.model.ATM;
 import io.github.kapilchoudhary.atm.model.Card;
+import io.github.kapilchoudhary.atm.service.CardService;
+import io.github.kapilchoudhary.atm.service.CashInventoryService;
+import io.github.kapilchoudhary.atm.service.model.DispenseCashResult;
 import lombok.NonNull;
 
 public interface ATMState {
@@ -12,8 +15,8 @@ public interface ATMState {
     void enterPin(@NonNull final ATM atm);
 
     void selectTransaction(@NonNull final ATM atm, @NonNull final TransactionType transactionType);
-    void checkBalance(@NonNull final ATM atm);
-    void withdrawal(@NonNull final ATM atm, final double amount);
+    double checkBalance(@NonNull final ATM atm);
+    DispenseCashResult withdraw(@NonNull final ATM atm, final double amount, @NonNull final CashInventoryService cashInventoryService, @NonNull final CardService cardService);
 
     // --- For future extensibility ---
     default void depositCash(@NonNull final ATM atm, double amount) {

@@ -39,4 +39,24 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidPinException(InvalidPinException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(InvalidWithdrawAmountException.class)
+    public ResponseEntity<String> handleInvalidWithdrawAmountException(InvalidWithdrawAmountException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientCardBalanceException.class)
+    public ResponseEntity<String> handleInsufficientCardBalanceException(InsufficientCardBalanceException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientATMBalanceException.class)
+    public ResponseEntity<String> handleInsufficientATMBalanceException(InsufficientATMBalanceException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientDenominationsException.class)
+    public ResponseEntity<String> handleInsufficientDenominationsException(InsufficientDenominationsException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 }

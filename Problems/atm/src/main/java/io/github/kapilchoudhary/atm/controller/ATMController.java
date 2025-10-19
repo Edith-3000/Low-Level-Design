@@ -1,8 +1,6 @@
 package io.github.kapilchoudhary.atm.controller;
 
-import io.github.kapilchoudhary.atm.dto.EnterPinRequest;
-import io.github.kapilchoudhary.atm.dto.InsertCardRequest;
-import io.github.kapilchoudhary.atm.dto.SelectTransactionRequest;
+import io.github.kapilchoudhary.atm.dto.*;
 import io.github.kapilchoudhary.atm.service.ATMService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +35,17 @@ public class ATMController {
     public ResponseEntity<String> selectTransaction(@RequestBody SelectTransactionRequest request) {
         atmService.selectTransaction(request.getTransactionType());
         return ResponseEntity.ok("Transaction selected: " + request.getTransactionType());
+    }
+
+    @GetMapping("/check-balance")
+    public ResponseEntity<String> checkBalance() {
+        double balance = atmService.checkBalance();
+        return ResponseEntity.ok("Current balance: ₹ " + balance);
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<WithdrawResponse> withdraw(@RequestBody WithdrawRequest request) {
+        WithdrawResponse response = atmService.withdraw(request.getAmount());
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,6 +1,9 @@
 package io.github.kapilchoudhary.atm.model;
 
 import io.github.kapilchoudhary.atm.enums.TransactionType;
+import io.github.kapilchoudhary.atm.service.CardService;
+import io.github.kapilchoudhary.atm.service.CashInventoryService;
+import io.github.kapilchoudhary.atm.service.model.DispenseCashResult;
 import io.github.kapilchoudhary.atm.state.ATMState;
 import io.github.kapilchoudhary.atm.state.IdleState;
 import lombok.Getter;
@@ -36,11 +39,11 @@ public class ATM {
         this.currentState.selectTransaction(this, transactionType);
     }
 
-    public void checkBalance() {
-        this.currentState.checkBalance(this);
+    public double checkBalance() {
+        return this.currentState.checkBalance(this);
     }
 
-    public void withdrawal(double amount) {
-        this.currentState.withdrawal(this, amount);
+    public DispenseCashResult withdraw(double amount, CashInventoryService cashInventoryService, CardService cardService) {
+        return this.currentState.withdraw(this, amount, cashInventoryService, cardService);
     }
 }

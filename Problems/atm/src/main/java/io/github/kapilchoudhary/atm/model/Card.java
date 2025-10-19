@@ -24,4 +24,7 @@ public class Card {
 
     @Column(nullable = false)
     private String pin;
+
+    @Column
+    private double balance;
 }

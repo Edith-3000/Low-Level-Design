@@ -1,4 +1,3 @@
 package io.github.kapilchoudhary.atm.state;
 
-public class OutOfServiceState {
-}
+// TODO: to be implemented

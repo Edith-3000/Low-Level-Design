@@ -3,6 +3,9 @@ package io.github.kapilchoudhary.atm.state;
 import io.github.kapilchoudhary.atm.enums.TransactionType;
 import io.github.kapilchoudhary.atm.model.ATM;
 import io.github.kapilchoudhary.atm.model.Card;
+import io.github.kapilchoudhary.atm.service.CardService;
+import io.github.kapilchoudhary.atm.service.CashInventoryService;
+import io.github.kapilchoudhary.atm.service.model.DispenseCashResult;
 import lombok.NonNull;
 
 public class IdleState implements ATMState {
@@ -30,12 +33,12 @@ public class IdleState implements ATMState {
     }
 
     @Override
-    public void checkBalance(@NonNull final ATM atm) {
+    public double checkBalance(@NonNull final ATM atm) {
         throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 
     @Override
-    public void withdrawal(@NonNull final ATM atm, double amount) {
+    public DispenseCashResult withdraw(@NonNull final ATM atm, double amount, @NonNull final CashInventoryService cashInventoryService, @NonNull final CardService cardService) {
         throw new UnsupportedOperationException("Operation not allowed in current state: " + this.getClass().getSimpleName());
     }
 }
