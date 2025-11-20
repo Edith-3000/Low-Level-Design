@@ -37,3 +37,6 @@
 
 # https://rollbar.com/blog/cpp-custom-exceptions/
 # https://www.youtube.com/watch?v=kjEhqgmEiWY&ab_channel=CodeBeauty
+
+# https://www.youtube.com/watch?v=Xny0IdvJ-1M&pp=ygUsbW92aWUgdGlja2V0IGJvb2tpbmcgc3lzdGVtIGxvdyBsZXZlbCBkZXNpZ24%3D
+# https://www.youtube.com/watch?v=WwNw6WWTX70&pp=ygUsbW92aWUgdGlja2V0IGJvb2tpbmcgc3lzdGVtIGxvdyBsZXZlbCBkZXNpZ24%3D
