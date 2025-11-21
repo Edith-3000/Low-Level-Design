@@ -19,7 +19,7 @@ public class Show {
             @NonNull final Movie movie,
             @NonNull final Screen screen,
             @NonNull final LocalDateTime startTime,
-            @NonNull final int durationInMinutes
+            final int durationInMinutes
     ) {
         this.id = id;
         this.movie = movie;

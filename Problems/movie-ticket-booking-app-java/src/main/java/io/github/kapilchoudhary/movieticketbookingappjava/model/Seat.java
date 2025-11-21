@@ -15,7 +15,7 @@ public class Seat {
     public Seat(
             @NonNull final String id,
             @NonNull final String rowNumber,
-            @NonNull final int seatNumber,
+            final int seatNumber,
             @NonNull final SeatCategory seatCategory
     ) {
         this.id = id;

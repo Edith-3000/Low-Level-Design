@@ -4,19 +4,19 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class Movie {
+public class User {
 
     private final String id;
     private final String name;
-    private final int durationInMinutes;
+    private final String emailAddress;
 
-    public Movie(
+    public User(
             @NonNull final String id,
             @NonNull final String name,
-            final int durationInMinutes
+            @NonNull final String emailAddress
     ) {
         this.id = id;
         this.name = name;
-        this.durationInMinutes = durationInMinutes;
+        this.emailAddress = emailAddress;
     }
 }
