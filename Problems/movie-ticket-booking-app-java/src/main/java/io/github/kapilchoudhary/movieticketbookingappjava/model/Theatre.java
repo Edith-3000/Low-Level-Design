@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Theatre {
     ) {
         this.id = id;
         this.name = name;
+        this.screens = new ArrayList<>();
     }
 
     public void addScreen(@NonNull final Screen screen) {

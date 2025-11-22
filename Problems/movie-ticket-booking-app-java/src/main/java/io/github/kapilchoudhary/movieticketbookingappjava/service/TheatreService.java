@@ -1,13 +1,14 @@
 package io.github.kapilchoudhary.movieticketbookingappjava.service;
 
 import io.github.kapilchoudhary.movieticketbookingappjava.enums.SeatCategory;
-import io.github.kapilchoudhary.movieticketbookingappjava.model.Movie;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Screen;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Seat;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Theatre;
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,6 +16,7 @@ public class TheatreService {
 
     private final Map<String, Theatre> theatres;
     private final Map<String, Screen> screens;
+    private final Map<String, Seat> seats;
 
     private final AtomicInteger theatreIdCounter;
     private final AtomicInteger screenIdCounter;
@@ -23,6 +25,7 @@ public class TheatreService {
     public TheatreService() {
         this.theatres = new HashMap<>();
         this.screens = new HashMap<>();
+        this.seats = new HashMap<>();
 
         theatreIdCounter = new AtomicInteger(0);
         screenIdCounter = new AtomicInteger(0);
@@ -64,6 +67,7 @@ public class TheatreService {
         String seatId = "SEAT-ID-" + seatIdCounter.incrementAndGet();
 
         Seat seat = new Seat(seatId, seatRowNumber, seatNumber, seatCategory);
+        seats.put(seatId, seat);
         screen.addSeat(seat);
 
         return seatId;
@@ -83,5 +87,17 @@ public class TheatreService {
         }
 
         return screens.get(screenId);
+    }
+
+    public List<Seat> getSeatsByIds(@NonNull final List<String> seatsIds) {
+        List<Seat> seatsResponse = new ArrayList<>();
+
+        for (String seatId: seatsIds) {
+            if (seats.containsKey(seatId)) {
+                seatsResponse.add(seats.get(seatId));
+            }
+        }
+
+        return seatsResponse;
     }
 }

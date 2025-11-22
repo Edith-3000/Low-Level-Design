@@ -2,11 +2,13 @@ package io.github.kapilchoudhary.movieticketbookingappjava.service;
 
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Movie;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Screen;
+import io.github.kapilchoudhary.movieticketbookingappjava.model.Seat;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.Show;
 import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 

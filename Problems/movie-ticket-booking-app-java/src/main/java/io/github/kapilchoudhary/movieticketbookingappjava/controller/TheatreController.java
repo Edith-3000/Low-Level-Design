@@ -12,7 +12,7 @@ public class TheatreController {
         this.theatreService = theatreService;
     }
 
-    public String createTheater(@NonNull final String theatreName) {
+    public String createTheatre(@NonNull final String theatreName) {
         return theatreService.createTheater(theatreName);
     }
 
