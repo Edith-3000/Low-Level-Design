@@ -1,6 +1,5 @@
 package io.github.kapilchoudhary.movieticketbookingappjava.controller;
 
-import io.github.kapilchoudhary.movieticketbookingappjava.model.Seat;
 import io.github.kapilchoudhary.movieticketbookingappjava.model.User;
 import io.github.kapilchoudhary.movieticketbookingappjava.service.BookingService;
 import lombok.NonNull;

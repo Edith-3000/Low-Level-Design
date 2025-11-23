@@ -52,6 +52,7 @@ public class Booking {
         if (this.bookingStatus != BookingStatus.CREATED) {
             throw new Exception("Cannot expire a booking which is not in " + BookingStatus.CREATED + " status.");
         }
+
         this.bookingStatus = BookingStatus.EXPIRED;
     }
 }

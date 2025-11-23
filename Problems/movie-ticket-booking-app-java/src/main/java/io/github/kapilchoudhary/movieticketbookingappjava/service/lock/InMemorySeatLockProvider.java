@@ -69,15 +69,21 @@ public class InMemorySeatLockProvider implements SeatLockProvider {
                     SeatLock seatLock = showLocks.get(seatAssumedToBeLocked);
 
                     if (seatLock.isLockExpired()) {
-                        throw new Exception("Lock expired for Seat ID: " + seatAssumedToBeLocked.getId() + " for Show ID: " + show.getId());
+                        throw new Exception(
+                                "Lock validation for User ID: " + user.getId()
+                                        + " failed, lock expired for Seat ID: " + seatAssumedToBeLocked.getId()
+                                        + " for Show ID: " + show.getId());
                     } else if (!seatLock.getLockedBy().equals(user)) {
                         throw new Exception(
-                                "Lock validation for User ID " + user.getId() + " failed, seat lock for Seat ID: "
-                                        + seatAssumedToBeLocked.getId() + " for Show ID: " + show.getId()
-                                        + " is currently held by User ID " + seatLock.getLockedBy());
+                                "Lock validation for User ID: " + user.getId()
+                                        + " failed, seat lock for Seat ID: " + seatAssumedToBeLocked.getId()
+                                        + " for Show ID: " + show.getId() + " is currently held by User ID " + seatLock.getLockedBy());
                     }
                 } else {
-                    throw new Exception("Lock validation failed, seat lock not present for Seat ID: " + seatAssumedToBeLocked.getId() + " for Show ID: " + show.getId());
+                    throw new Exception(
+                            "Lock validation for User ID: " + user.getId()
+                                    +  " failed, seat lock not present for Seat ID: " + seatAssumedToBeLocked.getId()
+                                    + " for Show ID: " + show.getId());
                 }
             }
         }

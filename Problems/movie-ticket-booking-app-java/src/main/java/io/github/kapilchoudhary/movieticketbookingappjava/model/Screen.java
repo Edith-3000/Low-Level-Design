@@ -15,7 +15,7 @@ public class Screen {
     private final String name;
 
     @Getter(AccessLevel.NONE)
-    private List<Seat> seats;
+    private final List<Seat> seats;
 
     public Screen(
             @NonNull final String id,

@@ -15,7 +15,7 @@ public class Theatre {
     private final String name;
 
     @Getter(AccessLevel.NONE)
-    private List<Screen> screens;
+    private final List<Screen> screens;
 
     public Theatre(
             @NonNull final String id,

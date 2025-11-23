@@ -11,6 +11,7 @@ import io.github.kapilchoudhary.movieticketbookingappjava.service.payment.UPIPay
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MovieTicketBookingApplication {
@@ -25,7 +26,7 @@ public class MovieTicketBookingApplication {
             ShowService showService = new ShowService(theatreService, movieService);
 
             // Create a seat lock provider with a timeout in seconds
-            SeatLockProvider seatLockProvider = new InMemorySeatLockProvider(120);
+            SeatLockProvider seatLockProvider = new InMemorySeatLockProvider(30);
 
             // Initialize booking service with the seat lock provider
             BookingService bookingService = new BookingService(showService, seatLockProvider, theatreService);
@@ -77,7 +78,7 @@ public class MovieTicketBookingApplication {
 
             // Step 4: Create a movie
             System.out.println("\nCreating a new movie...");
-            String movieId = movieController.createMovie("Inception", 150);
+            String movieId = movieController.createMovie("JAAT BALWAN, JAI BHAGWAN", 150);
             System.out.println("Movie created with ID: " + movieId);
 
             // Step 5: Create a show
@@ -93,13 +94,13 @@ public class MovieTicketBookingApplication {
 
             // Step 7: Create a user
             System.out.println("\nCreating a user...");
-            User user = new User("USER-1", "Doland Trump", "doland.trump@cia.com");
+            User user = new User("USER-1", "Doland Trump", "doland.trump@epsteinisland.com");
             System.out.println("User created: " + user.getName() + " with email: " + user.getEmailAddress());
 
             // Step 8: Book tickets sequentially
-            System.out.println("\nSequential booking of seats 1, 2, 3...");
+            System.out.println("\nSEQUENTIAL BOOKING OF SEATS: 1, 2, 3...");
             String bookingId = bookingController.createBooking(user, showId, List.of("SEAT-ID-1", "SEAT-ID-2", "SEAT-ID-3"));
-            System.out.println("Booking created with ID: " + bookingId);
+            System.out.println("\nBooking created with ID: " + bookingId);
 
             // Step 9: Process payment for the booking
             System.out.println("\nProcessing payment...");
@@ -119,7 +120,42 @@ public class MovieTicketBookingApplication {
             // ------------------------------
             // CONCURRENT BOOKING SIMULATION
             // ------------------------------
-            System.out.println("\nSimulating concurrent booking attempts...");
+            System.out.println("\nSIMULATING CONCURRENT BOOKING ATTEMPTS...");
+
+            Thread t1 = new Thread(() -> {
+                try {
+                    // User 1 (Doland Trump) trying to book seats 5, 6, 7
+                    String bookingIdT1 = bookingController.createBooking(user, showId, Arrays.asList("SEAT-ID-5", "SEAT-ID-6", "SEAT-ID-7"));
+                    System.out.println("\nUser1 booking (seats 5,6,7) succeeded with Booking ID: " + bookingIdT1);
+                } catch (Exception e) {
+                    System.err.println("\nUser1 booking (seats 5,6,7) failed: " + e.getMessage());
+                }
+            });
+
+            Thread t2 = new Thread(() -> {
+                try {
+                    // User 2 trying to book seats 7, 8, 9 (seat 7 overlaps with User1’s attempt)
+                    User user2 = new User("USER-2", "Jaadu", "jaadu@koimilgaya.com");
+                    String bookingIdT2 = bookingController.createBooking(user2, showId, Arrays.asList("SEAT-ID-7", "SEAT-ID-8", "SEAT-ID-9"));
+                    System.out.println("\nUser2 booking (seats 7,8,9) succeeded with Booking ID: " + bookingIdT2);
+                } catch (Exception e) {
+                    System.err.println("\nUser2 booking (seats 7,8,9) failed: " + e.getMessage());
+                }
+            });
+
+            // t2.start();
+            t1.start();
+            t2.start();
+
+            t1.join();
+            t2.join();
+
+            // Final available seats after concurrent attempts
+            System.out.println("\nFinal available seats after concurrent booking attempts: " + seatAvailaibilityController.getAvailableSeats(showId));
+
+            Thread.sleep(35000);
+            System.out.println("\nFinal available seats after concurrent booking attempts' timeout expired: " + seatAvailaibilityController.getAvailableSeats(showId));
+
         } catch (Exception e) {
             System.err.println("Error occurred: " + e.getMessage());
             e.printStackTrace();

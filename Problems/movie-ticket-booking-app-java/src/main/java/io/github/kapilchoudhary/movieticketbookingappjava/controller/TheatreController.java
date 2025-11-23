@@ -25,8 +25,8 @@ public class TheatreController {
 
     public String createSeatInScreen(
             @NonNull final String seatRowNumber,
-            final int seatNumber, @NonNull final
-            SeatCategory seatCategory,
+            final int seatNumber,
+            @NonNull final SeatCategory seatCategory,
             @NonNull final String screenId
     ) throws Exception {
         return theatreService.createSeatInScreen(seatRowNumber, seatNumber, seatCategory, screenId);
