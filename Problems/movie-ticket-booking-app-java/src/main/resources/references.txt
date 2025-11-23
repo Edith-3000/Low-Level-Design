@@ -4,3 +4,5 @@
 # https://www.youtube.com/playlist?list=PL564gOx0bCLpAL7yMJqOuK3_hBuLkyRhn
 
 # https://github.com/Edith-3000/Low-Level-Design/tree/main/Problems/movie-ticket-booking-app
+
+# https://chatgpt.com/share/6922ee0b-e050-8001-bece-930f1ca013ce - [https://chatgpt.com/c/691fca96-e7d4-8320-9e2c-ce73150cf9a6]
