@@ -3,3 +3,5 @@
 # https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/pub-sub-system.md
 
 # https://gist.github.com/Edith-3000/8b362c22faaafb7625cad31b1352e6dd
+
+# https://chatgpt.com/share/693965c5-0710-8001-9bae-5ed8f02b09ce - [https://chatgpt.com/c/692bd057-7940-8320-bdd6-5d208748bc7c]
