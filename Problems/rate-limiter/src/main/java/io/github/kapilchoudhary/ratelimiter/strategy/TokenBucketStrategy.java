@@ -134,7 +134,8 @@ public class TokenBucketStrategy implements RateLimiter<TokenBucketConfig> {
            return new Bucket(localBucketCapacity, localRefillRate);
         });
 
-        // This can be made better: Refer "Strategy-level atomic logic" heading in https://chatgpt.com/share/693d21e2-5364-8001-99ce-bed431dcb72b
+        // TODO: This can be made better: Refer "Strategy-level atomic logic" heading in https://chatgpt.com/share/693d21e2-5364-8001-99ce-bed431dcb72b
+        //       This will unnecessarily waste a globalBucket if it is available but localBucket token is not available.
         if (globalBucket.tryConsume() && localBucket.tryConsume()) {
             return true;
         } else {

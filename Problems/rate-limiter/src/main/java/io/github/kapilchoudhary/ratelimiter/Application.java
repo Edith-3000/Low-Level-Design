@@ -4,6 +4,9 @@ import io.github.kapilchoudhary.ratelimiter.model.TokenBucketConfig;
 import io.github.kapilchoudhary.ratelimiter.service.RateLimiterService;
 import io.github.kapilchoudhary.ratelimiter.strategy.TokenBucketStrategy;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +17,7 @@ public class Application {
 
         // Initial config
         TokenBucketConfig initialConfig = new TokenBucketConfig(
-                10,
+                100000,
                 3,
                 5,
                 1,
@@ -34,19 +37,22 @@ public class Application {
         System.out.println("\n==== Sending initial burst ====\n");
 
         // Burst of requests
-        for (int i = 0; i < 10; i++) {
-            rateLimiterService.processRequest("user-1");
-            rateLimiterService.processRequest("user-2");
-        }
+        sendBurstRequests(rateLimiterService, 10, "user-1");
+        sendBurstRequests(rateLimiterService, 10, "user-2");
+//        for (int i = 0; i < 10; i++) {
+//            rateLimiterService.processRequest("user-1");
+//            rateLimiterService.processRequest("user-2");
+//        }
 
         // Wait for refill
         Thread.sleep(3000);
 
         System.out.println("\n==== After refill ====\n");
 
-        for (int i = 0; i < 5; i++) {
-            rateLimiterService.processRequest("user-1");
-        }
+        sendBurstRequests(rateLimiterService, 5, "user-1");
+//        for (int i = 0; i < 5; i++) {
+//            rateLimiterService.processRequest("user-1");
+//        }
 
         // Update configuration dynamically
         System.out.println("\n==== Updating configuration ====\n");
@@ -62,17 +68,38 @@ public class Application {
 
         rateLimiterService.updateConfiguration(updatedConfig);
 
-        Thread.sleep(2000);
+        Thread.sleep(5000);
 
         System.out.println("\n==== After config update ====\n");
 
-        for (int i = 0; i < 10; i++) {
-            rateLimiterService.processRequest("user-1");
-        }
+        sendBurstRequests(rateLimiterService, 10, "user-1");
+//        for (int i = 0; i < 10; i++) {
+//            rateLimiterService.processRequest("user-1");
+//        }
 
         Thread.sleep(2000);
         rateLimiterService.shutdown();
 
         System.out.println("\n==== Shutdown complete ====");
+    }
+
+    private static void sendBurstRequests(RateLimiterService<TokenBucketConfig> rateLimiterService, int count, String rateLimitKey) {
+        List<CompletableFuture<Boolean>> futures = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            futures.add(rateLimiterService.processRequest(rateLimitKey));
+        }
+
+        CompletableFuture
+                .allOf(futures.toArray(new CompletableFuture[0]))
+                .join();
+
+        long allowedRequests = futures.stream()
+                .map(CompletableFuture::join)
+                .filter(x -> x == true)
+                .count();
+
+        System.out.printf("Results: %d allowed, %d blocked (total: %d)%n", allowedRequests, count - allowedRequests, count);
+        System.out.println();
     }
 }
