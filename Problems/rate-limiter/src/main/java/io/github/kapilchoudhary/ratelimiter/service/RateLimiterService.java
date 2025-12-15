@@ -28,7 +28,7 @@ public class RateLimiterService<C extends RateLimiterConfig> {
         this.executorService = executorService;
     }
 
-    public CompletableFuture<Boolean> processRequest(@NonNull String rateLimitKey) {
+    public CompletableFuture<Boolean> processRequest(@NonNull final String rateLimitKey) {
         return CompletableFuture.supplyAsync(() -> {
             boolean allowRequest = rateLimiterStrategy.allowRequest(rateLimitKey);
 

@@ -5,6 +5,6 @@ import lombok.NonNull;
 
 public interface RateLimiter<C extends RateLimiterConfig> {
     public abstract boolean allowRequest(@NonNull final String rateLimitKey);
-    public abstract void updateConfiguration(C config);
+    public abstract void updateConfiguration(@NonNull final C config);
     public abstract void shutdown();
 }

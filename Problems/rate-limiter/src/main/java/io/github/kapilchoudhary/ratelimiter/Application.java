@@ -17,7 +17,7 @@ public class Application {
 
         // Initial config
         TokenBucketConfig initialConfig = new TokenBucketConfig(
-                100000,
+                15,
                 3,
                 5,
                 1,

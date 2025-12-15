@@ -135,7 +135,7 @@ public class TokenBucketStrategy implements RateLimiter<TokenBucketConfig> {
         });
 
         // TODO: This can be made better: Refer "Strategy-level atomic logic" heading in https://chatgpt.com/share/693d21e2-5364-8001-99ce-bed431dcb72b
-        //       This will unnecessarily waste a globalBucket if it is available but localBucket token is not available.
+        //       This will unnecessarily waste a globalBucket token if it is available but localBucket token is not available.
         if (globalBucket.tryConsume() && localBucket.tryConsume()) {
             return true;
         } else {
@@ -144,7 +144,7 @@ public class TokenBucketStrategy implements RateLimiter<TokenBucketConfig> {
     }
 
     @Override
-    public void updateConfiguration(TokenBucketConfig tokenBucketConfig) {
+    public void updateConfiguration(@NonNull final TokenBucketConfig tokenBucketConfig) {
         this.globalBucketCapacity = tokenBucketConfig.getGlobalBucketCapacity();
         this.localBucketCapacity = tokenBucketConfig.getLocalBucketCapacity();
 
